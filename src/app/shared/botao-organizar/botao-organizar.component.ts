@@ -1,12 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-botao-organizar',
-  standalone: true,
-  imports: [],
+  standalone: true, // Usando Standalone para fácil importação
   templateUrl: './botao-organizar.component.html',
-  styleUrl: './botao-organizar.component.css'
+  styleUrls: ['./botao-organizar.component.css']
 })
 export class BotaoOrganizarComponent {
+  // Texto que aparece no botão (e.g., 'Organizar Matrizes')
+  @Input() textoBotao: string = 'Filtrar/Organizar'; 
+  
+  // Evento emitido quando o botão é clicado
+  @Output() acaoClicada = new EventEmitter<void>();
 
+  onClick() {
+    this.acaoClicada.emit();
+  }
 }

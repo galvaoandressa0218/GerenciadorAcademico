@@ -4,6 +4,7 @@ import { RecuperarSenhaComponent } from './features/recuperar-senha/recuperar-se
 import { MainLayoutComponent } from './features/main-layout-component/main-layout-component.component';
 import { ProfessoresComponent } from './features/professores/professores.component';
 import { DisciplinasComponent } from './features/disciplinas/disciplinas.component';
+import { MatrizCurricularComponent } from './features/matriz-curricular/matriz-curricular.component';
 
 export const routes: Routes = [
 
@@ -36,10 +37,10 @@ export const routes: Routes = [
         // path: 'cronogramas', 
         // loadComponent: () => import('./features/schedules/schedules.component').then(m => m.SchedulesComponent) 
       // },
-      // { 
-        // path: 'matrizes', 
-        // loadComponent: () => import('./features/matriz-list/matriz-list.component').then(m => m.MatrizListComponent) 
-      // },
+      { 
+        path: 'matriz-curricular', 
+        loadComponent: () => import('./features/matriz-curricular/matriz-curricular.component').then(m => m.MatrizCurricularComponent) 
+       },
     ] // O array children deve ser fechado corretamente
   }, // Vírgula para fechar a rota 'app'
 

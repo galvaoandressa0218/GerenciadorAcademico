@@ -1,0 +1,19 @@
+.organizar-matrizes-button {
+  background-color: #ff9800; /* Laranja da imagem */
+  color: white;
+  border: none;
+  border-radius: 8px; /* Borda arredondada */
+  padding: 12px 25px; /* Padding interno */
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 152, 0, 0.4); /* Sombra mais visível para dar profundidade */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra leve no texto, como na imagem */
+  display: inline-block; /* Garante que o tamanho se ajuste ao conteúdo */
+}
+
+.organizar-matrizes-button:hover {
+  background-color: #fb8c00; /* Laranja um pouco mais escuro no hover */
+  box-shadow: 0 6px 12px rgba(255, 152, 0, 0.5);
+}
