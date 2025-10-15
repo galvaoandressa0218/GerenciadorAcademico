@@ -1,0 +1,11 @@
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.content-area {
+  flex-grow: 1; 
+  padding: 20px; /* Adiciona padding ao redor do conteúdo */
+  background-color: #f0f0f0; /* Fundo cinza claro que aparece no print */
+}

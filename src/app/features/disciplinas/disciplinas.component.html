@@ -1,0 +1,52 @@
+<div class="page-container">
+  
+  <header class="header-bar">
+    <h1>Adicionar disciplina</h1>
+  </header>
+
+  <div class="content-table-wrapper">
+    
+    <table class="disciplines-table">
+      <thead>
+        <tr>
+          <th class="col-nome">Nome</th>
+          <th class="col-curso">Curso</th>
+          <th class="col-ch">Carga horária</th>
+          <th class="col-tipo">Tipo</th>
+          <th class="col-class">Classificação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let disc of disciplines()">
+          
+          <tr class="discipline-row" (click)="toggleExpand(disc)">
+            <td class="col-nome nome-expand">
+              <div class="nome-principal">{{ disc.nome }} {{ disc.codigo }}</div>
+              <div class="desc-toggle">descrição</div>
+            </td>
+            <td class="col-curso">{{ disc.curso }}</td>
+            <td class="col-ch">{{ disc.cargaHoraria }}</td>
+            <td class="col-tipo">{{ disc.tipo }}</td>
+            <td class="col-class classificacao">
+              {{ disc.classificacao }}
+            </td>
+          </tr>
+
+          <tr *ngIf="disc.expanded" class="description-row">
+            <td colspan="5" class="description-content">
+              <p>{{ disc.descricao }}</p>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+  
+  <footer class="footer-actions">
+    <app-botao-adicionar
+      [textoBotao]="'+ Adicionar Disciplina'"
+      (clickEvent)="handleAddDiscipline()"
+    ></app-botao-adicionar>
+  </footer>
+
+</div>

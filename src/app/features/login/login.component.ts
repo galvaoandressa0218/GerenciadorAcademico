@@ -14,7 +14,6 @@ import { RecuperarSenhaComponent } from '../recuperar-senha/recuperar-senha.comp
     FormsModule,
     BotaoLoginComponent,
     RouterLink,
-    RecuperarSenhaComponent
 ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']

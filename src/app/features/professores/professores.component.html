@@ -1,0 +1,47 @@
+<div class="page-container">
+  <div class="header-bar">
+    <h1>Adicionar professor</h1>
+  </div>
+
+  <div class="content-table-wrapper">
+    <table class="professors-table">
+      <thead>
+        <tr>
+          <th class="col-nome">Nome</th>
+          <th class="col-instituicao">Instituição</th>
+          <th class="col-registro">Registro</th>
+          <th class="col-data">Data de cadastro</th>
+          <th class="col-status">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let professor of professors()">
+          <td>
+            <div class="name-column">
+              <span class="material-icons-outlined icon-placeholder">person</span> 
+              {{ professor.nome }}
+            </div>
+          </td>
+          <td>{{ professor.instituicao }}</td>
+          <td>{{ professor.registro }}</td>
+          <td>{{ professor.dataCadastro }}</td>
+          <td>
+            <div class="status-display">
+              <span class="status-active"></span> Ativo
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="footer-actions">
+    <!-- ✅ BOTÃO ADICIONAR (Restrito ao Admin) -->
+    <app-botao-adicionar
+      *ngIf="isAdmin"
+      [textoBotao]="'+ Adicionar Professor'"
+      (clickEvent)="handleAddProfessor()"
+    ></app-botao-adicionar>
+  </footer>
+
+</div>

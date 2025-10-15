@@ -1,0 +1,25 @@
+<aside class="sidebar">
+  <nav>
+    <ul>
+      <li *ngFor="let item of navItems">
+        <!-- Aplica o *ngIf para restringir itens a administradores -->
+        <a 
+          [routerLink]="item.route" 
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+          *ngIf="!item.adminOnly || isAdmin"
+        >
+          <span class="material-icons">{{ item.icon }}</span>
+          {{ item.label }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Botão Sair fora da navegação principal -->
+  <div class="sidebar-footer">
+    <button class="logout-button" (click)="handleLogout()">
+      Sair
+    </button>
+  </div>
+</aside>

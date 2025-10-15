@@ -1,0 +1,41 @@
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../features/core/services/auth.service';
+
+interface NavItem {
+  icon: string; // Nome do Material Icon
+  label: string;
+  route: string;
+  adminOnly?: boolean;
+}
+
+@Component({
+  selector: 'app-barra-lateral',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterLink,
+    RouterLinkActive,
+  ],
+  templateUrl: './barra-lateral.component.html',
+  styleUrls: ['./barra-lateral.component.css']
+})
+export class SidebarComponent {
+  private authService = inject(AuthService);
+  
+  public isAdmin = this.authService.isAdmin;
+
+  // Itens de navegação com os nomes dos Material Icons que você forneceu
+  public navItems: NavItem[] = [
+    { icon: 'home', label: 'Página inicial', route: '/app/dashboard' },
+    { icon: 'people', label: 'Professores', route: '/app/professores', adminOnly: true }, // Exclusivo Admin
+    { icon: 'menu_book', label: 'Disciplinas', route: '/app/disciplinas' },
+    { icon: 'calendar_today', label: 'Cronogramas', route: '/app/cronogramas' },
+    { icon: 'grid_view', label: 'Matrizes Curriculares', route: '/app/matrizes' },
+  ];
+
+  handleLogout(): void {
+    this.authService.logout();
+  }
+}

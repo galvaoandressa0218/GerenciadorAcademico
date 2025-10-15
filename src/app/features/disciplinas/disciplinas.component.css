@@ -1,0 +1,115 @@
+.page-container {
+  padding: 0;
+  background-color: #f0f0f0;
+  min-height: calc(100vh - 40px);
+}
+
+.header-bar {
+  background-color: #5d4037;
+  color: white;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.header-bar h1 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.content-table-wrapper {
+  background-color: white;
+  padding: 15px 20px 20px 20px;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.disciplines-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+/* Estilos do Cabeçalho da Tabela */
+.disciplines-table thead th {
+  text-align: left;
+  padding: 15px 10px 5px 10px;
+  background-color: white;
+  color: #333;
+  font-weight: 500;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Estilos das Linhas de Dados e Expansão */
+.discipline-row {
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.15s;
+}
+
+.discipline-row:hover {
+  background-color: #fcfcfc;
+}
+
+.discipline-row td {
+  padding: 15px 10px;
+  color: #555;
+}
+
+.nome-expand {
+  display: flex;
+  flex-direction: column;
+}
+
+.nome-principal {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.desc-toggle {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.classificacao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.expand-icon {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+.expand-icon.rotated {
+  transform: rotate(180deg);
+}
+
+/* Linha de Descrição Expandida */
+.description-row {
+  background-color: #f7f7f7;
+}
+
+.description-content {
+  padding: 10px 20px;
+  line-height: 1.4;
+  color: #444;
+  font-size: 0.9rem;
+}
+
+.description-content p {
+  margin: 0;
+}
+
+.footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 0;
+}
+
+app-botao-adicionar {
+  width: 220px;
+}
