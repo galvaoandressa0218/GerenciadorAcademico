@@ -1,0 +1,28 @@
+<div class="forgot-password-container">
+  <div class="card">
+    <h2>Recuperar acesso</h2>
+    <p>Informe o e-mail cadastrado para receber o link de redefinição de senha.</p>
+
+    <div *ngIf="message()" [ngClass]="{'success-message': !isError(), 'error-message': isError()}">
+      {{ message() }}
+    </div>
+
+    <form (ngSubmit)="handleForgotPassword()">
+      <input
+        type="email"
+        placeholder="E-mail"
+        [(ngModel)]="email"
+        name="email"
+        required
+      />
+      
+      <app-botao-login
+        [textoBotao]="isLoading() ? 'ENVIANDO...' : 'ENVIAR CÓDIGO'"
+        [disabled]="isLoading() || !email()"
+        (clickEvent)="handleForgotPassword()"
+      ></app-botao-login>
+      
+      <a [routerLink]="['/login']" class="back-to-login">Lembrei da minha senha</a>
+    </form>
+  </div>
+</div>
