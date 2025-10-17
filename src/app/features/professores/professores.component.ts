@@ -12,7 +12,7 @@ interface Professor {
 }
 
 @Component({
-  selector: 'app-professors',
+  selector: 'app-professores',
   standalone: true,
   imports: [
     CommonModule, 

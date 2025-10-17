@@ -1,0 +1,23 @@
+<div class="materias-container">
+  
+  <header class="page-header">
+    <h1>Materias Cadastradas</h1>
+  </header>
+  
+ <div class="table-header">
+    <span>Nome</span>
+    <span>curso</span>
+    <span>carga horaria</span>
+    <span>tipo</span>
+    <span>classificação</span>
+  </div>
+
+  <!-- Lista de Matérias (Usando a Barra Clicável Laranja) -->
+  <div class="materias-list">
+    <app-barra-clique 
+      *ngFor="let materia of materiasCadastradas" 
+      [materia]="materia"
+      (barClicked)="navigateToMateria(materia.id)">
+    </app-barra-clique>
+  </div>
+</div>

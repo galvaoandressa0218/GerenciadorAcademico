@@ -2,7 +2,6 @@
   <nav>
     <ul>
       <li *ngFor="let item of navItems">
-        <!-- Aplica o *ngIf para restringir itens a administradores -->
         <a 
           [routerLink]="item.route" 
           routerLinkActive="active"
@@ -16,7 +15,6 @@
     </ul>
   </nav>
 
-  <!-- Botão Sair fora da navegação principal -->
   <div class="sidebar-footer">
     <button class="logout-button" (click)="handleLogout()">
       Sair

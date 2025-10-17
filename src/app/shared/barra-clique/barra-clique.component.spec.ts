@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MainLayoutComponent } from './main-layout-component.component';
+import { BarraCliqueComponent } from './barra-clique.component';
 
-describe('MainLayoutComponent', () => {
-  let component: MainLayoutComponent;
-  let fixture: ComponentFixture<MainLayoutComponent>;
+describe('BarraCliqueComponent', () => {
+  let component: BarraCliqueComponent;
+  let fixture: ComponentFixture<BarraCliqueComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MainLayoutComponent]
+      imports: [BarraCliqueComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(MainLayoutComponent);
+    fixture = TestBed.createComponent(BarraCliqueComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

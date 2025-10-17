@@ -11,7 +11,7 @@ interface NavItem {
 }
 
 @Component({
-  selector: 'app-barra-lateral',
+  selector: 'app-barralateral',
   standalone: true,
   imports: [
     CommonModule,
@@ -28,11 +28,11 @@ export class SidebarComponent {
 
   // Itens de navegação com os nomes dos Material Icons que você forneceu
   public navItems: NavItem[] = [
-    { icon: 'home', label: 'Página inicial', route: '/app/dashboard' },
-    { icon: 'people', label: 'Professores', route: '/app/professores', adminOnly: true }, // Exclusivo Admin
+    { icon: 'home', label: 'Página inicial', route: '/app/materias' },
+    { icon: 'people', label: 'Professores', route: '/app/professores' },
     { icon: 'menu_book', label: 'Disciplinas', route: '/app/disciplinas' },
     { icon: 'calendar_today', label: 'Cronogramas', route: '/app/cronogramas' },
-    { icon: 'grid_view', label: 'Matrizes Curriculares', route: '/app/matrizes' },
+    { icon: 'grid_view', label: 'Matrizes Curriculares', route: '/app/matriz-curricular' },
   ];
 
   handleLogout(): void {

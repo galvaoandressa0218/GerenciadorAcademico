@@ -1,0 +1,16 @@
+<div class="materia-row" (click)="barClicked.emit()">
+  <div class="cell-nome">
+    {{ materia.nome }} ({{ materia.codigo }})
+  </div>
+  
+  <div class="cell">{{ materia.curso }}</div>
+  <div class="cell">{{ materia.cargaHoraria }}h</div>
+  <div class="cell">{{ materia.tipo }}</div>
+  <div class="cell last-cell">{{ materia.classificacao }}</div>
+  
+  <div class="arrow-wrapper">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="arrow-icon">
+      <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+    </svg>
+  </div>
+</div>
