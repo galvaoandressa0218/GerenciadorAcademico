@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BarraCliqueComponent } from '../../shared/barra-clique/barra-clique.component';
-import { Router } from '@angular/router';
+import { BarraCliqueComponent } from '../../shared/barra-clique/barra-clique.component'; // Seu componente
+import { Router } from '@angular/router'; // NECESSÁRIO para injetar o Router
 import { NgFor } from '@angular/common';
 
 // Interface de Dados
@@ -16,16 +16,15 @@ interface Materia {
 }
 
 @Component({
-  selector: 'app-materias',
+  selector: 'app-materias-cadastradas',
   standalone: true,
-  // CORREÇÃO: BarraCliqueComponent DEVE estar no imports
-  imports: [CommonModule, BarraCliqueComponent, NgFor], 
+  imports: [CommonModule, BarraCliqueComponent, NgFor],
   templateUrl: './materias-cadastradas.component.html',
   styleUrls: ['./materias-cadastradas.component.css']
 })
 export class MateriasCadastradasComponent implements OnInit {
   
-  // SOLUÇÃO: Injetar o serviço Router
+  // INJEÇÃO DO ROUTER
   private router = inject(Router);
 
   // Dados MOCK (para simular a lista do print)
@@ -43,11 +42,10 @@ export class MateriasCadastradasComponent implements OnInit {
     //
   }
 
+  // FUNÇÃO DE NAVEGAÇÃO
   navigateToMateria(id: number): void {
     console.log(`Navegando para detalhes da Matéria ID: ${id}`);
-    
-
-    // Isso navegará para uma rota como: /materia/1, /materia/2, etc.
-    this.router.navigate(['/materia', id]);
+    // Navega para /app/materia/{id}, por exemplo: /app/materia/1
+    this.router.navigate(['/app/materia', id]);
   }
 }

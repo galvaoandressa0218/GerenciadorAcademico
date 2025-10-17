@@ -6,7 +6,6 @@ import { ProfessoresComponent } from './features/professores/professores.compone
 import { DisciplinasComponent } from './features/disciplinas/disciplinas.component';
 import { MatrizCurricularComponent } from './features/matriz-curricular/matriz-curricular.component';
 import { MateriasCadastradasComponent } from './features/materias-cadastradas/materias-cadastradas.component';
-import { DetalheMateriasComponent } from './features/detalhe-materias/detalhe-materias.component';
 // import { AuthGuard } from './features/core/guards/auth.guard'; // Importe o AuthGuard se estiver usando autenticação
 export const routes: Routes = [
   // 1. ROTAS PÚBLICAS (Sem Sidebar)
