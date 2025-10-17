@@ -21,7 +21,7 @@ const MOCK_DATA: Disciplina = {
 })
 export class DisciplinaService {
     private http = inject(HttpClient);
-    private apiUrl = '/api/disciplinas'; // Sua URL de backend
+    private apiUrl = 'http://localhost:8080'; // Sua URL de backend
 
     // Método que faria a chamada real (GET)
     getDetalhesDisciplina(id: number): Observable<Disciplina> {

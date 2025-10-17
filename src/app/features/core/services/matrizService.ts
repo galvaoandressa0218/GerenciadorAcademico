@@ -39,7 +39,7 @@ export interface MatrizCurricular {
 export class MatrizCurricularService {
     // ... (restante do código do serviço)
     private http = inject(HttpClient);
-    private apiUrl = '/api/matrizes'; 
+    private apiUrl = 'localhost:8080'; // Sua URL de backend
   
     // Dados de mock (simulados) - Atualize para corresponder à nova estrutura!
     private mockMatriz: MatrizCurricular = {
@@ -56,7 +56,7 @@ export class MatrizCurricularService {
             { nome: 'Matemática Discreta', cargaHoraria: 60, codigo: 'DIS001', tipo: 'Obrigatória', modalidade: 'Presencial', pratica: false },
             { nome: 'Programação I', cargaHoraria: 80, codigo: 'PROG01', tipo: 'Obrigatória', modalidade: 'Presencial', pratica: true }
           ]},
-          // ... adicione o restante dos semestres aqui ...
+         
         ]
     };
     

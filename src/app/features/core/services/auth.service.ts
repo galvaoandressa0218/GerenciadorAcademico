@@ -15,7 +15,7 @@ export interface AuthResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly apiUrl = 'http://localhost:8080/api/auth/login';
+  private readonly apiUrl = 'http://localhost:8080/auth';
 
   private http = inject(HttpClient);
   private router = inject(Router);
