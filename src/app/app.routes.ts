@@ -22,7 +22,7 @@ export const routes: Routes = [
       // Rota padrão redireciona para matérias cadastradas
       { path: '', redirectTo: 'materias-cadastradas', pathMatch: 'full' },
 
-      // Rota para Matérias Cadastradas (antiga pagina-inicial)
+      // Rota para Matérias Cadastradas
       { 
         path: 'materias-cadastradas', 
         loadComponent: () => import('./features/materias-cadastradas/materias-cadastradas.component')
@@ -43,6 +43,12 @@ export const routes: Routes = [
                               .then(m => m.DisciplinasComponent)
       },
 
+      { 
+        path: 'cronogramas', 
+        loadComponent: () => import('./features/materias-cadastradas/materias-cadastradas.component')
+                              .then(m => m.MateriasCadastradasComponent)
+      },
+
       // Matriz Curricular
       { 
         path: 'matriz-curricular', 
@@ -50,7 +56,6 @@ export const routes: Routes = [
                               .then(m => m.MatrizCurricularComponent)
       },
       
-      // ✅ CORREÇÃO: Rota movida para dentro dos children
       {
         path: 'referencias-bibliograficas',
         loadComponent: () => import('./features/referencias-bibliograficas/referencias-bibliograficas.component')
@@ -69,6 +74,7 @@ export const routes: Routes = [
     ]
   },
 
-  // 3. Rota Coringa Global (Fallback para tudo que não for encontrado)
+  // 3. Rota Coringa Global
   { path: '**', redirectTo: 'login' }
 ];
+

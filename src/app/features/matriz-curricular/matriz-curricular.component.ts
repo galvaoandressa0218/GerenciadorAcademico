@@ -3,7 +3,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // Importação correta das Interfaces atualizadas
-import { MatrizCurricularService, MatrizCurricular } from '../core/services/matrizService'; 
+import { MatrizCurricularService, MatrizCurricular } from '../core/services/matriz-curricular.service'; 
 
 import { BotaoOrganizarComponent } from '../../shared/botao-organizar/botao-organizar.component';
 
