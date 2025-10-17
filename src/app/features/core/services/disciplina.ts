@@ -13,7 +13,6 @@ const MOCK_DATA: Disciplina = {
     nome: 'Arquitetura de Software',
     codigo: 'ARQS-20002',
     secoes: [
-        // ... (Dados da disciplina que você já tem)
     ],
 };
 
