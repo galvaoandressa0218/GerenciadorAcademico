@@ -1,23 +1,30 @@
 <div class="materias-container">
   
   <header class="page-header">
-    <h1>Materias Cadastradas</h1>
+    <h1>Matérias Cadastradas</h1>
   </header>
   
- <div class="table-header">
+  <div class="table-header">
     <span>Nome</span>
-    <span>curso</span>
-    <span>carga horaria</span>
-    <span>tipo</span>
-    <span>classificação</span>
+    <span>Curso</span>
+    <span>Carga Horária</span>
+    <span>Tipo</span>
+    <span>Classificação</span>
+    <span>Ação</span>
   </div>
 
-  <!-- Lista de Matérias (Usando a Barra Clicável Laranja) -->
+  <!-- Lista de matérias usando botão -->
   <div class="materias-list">
-    <app-barra-clique 
-      *ngFor="let materia of materiasCadastradas" 
-      [materia]="materia"
-      (barClicked)="navigateToMateria(materia.id)">
-    </app-barra-clique>
+    <div class="materia-row" *ngFor="let materia of materiasCadastradas">
+      <span>{{ materia?.nome }}</span>
+      <span>{{ materia?.curso }}</span>
+      <span>{{ materia?.cargaHoraria }}h</span>
+      <span>{{ materia?.tipo }}</span>
+      <span>{{ materia?.classificacao }}</span>
+      <span>
+        <button (click)="navigateToMateria(materia.id)">Ver Detalhes</button>
+      </span>
+    </div>
   </div>
+
 </div>

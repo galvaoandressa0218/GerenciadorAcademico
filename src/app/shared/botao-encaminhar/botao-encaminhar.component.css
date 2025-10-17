@@ -1,0 +1,53 @@
+.materia-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e67e00; /* Laranja vivo */
+  color: #fff;
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+.materia-row:hover {
+  background-color: #cf7100; /* Tom mais escuro no hover */
+  transform: scale(1.01);
+}
+
+.cell-nome {
+  font-weight: 600;
+  flex: 2;
+}
+
+.cell {
+  flex: 1;
+  text-align: center;
+  color: #fefefe;
+  opacity: 0.95;
+}
+
+.last-cell {
+  font-weight: 500;
+}
+
+.arrow-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.arrow-icon {
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  transition: transform 0.2s ease-in-out;
+}
+
+.materia-row:hover .arrow-icon {
+  transform: translateX(3px);
+}

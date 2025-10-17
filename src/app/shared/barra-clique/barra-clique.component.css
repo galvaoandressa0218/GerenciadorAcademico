@@ -1,53 +1,84 @@
-.materia-row {
-  display: flex;
+/* --- Estilos Comuns --- */
+.barra-resumo {
+  display: grid;
   align-items: center;
-  justify-content: space-between;
-  background-color: #e67e00; /* Laranja vivo */
+  padding: 15px 20px;
+  background-color: #f39c12; /* Laranja */
   color: #fff;
-  border-radius: 6px;
-  padding: 10px 16px;
-  margin: 8px 0;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  transition: background-color 0.2s ease;
+  border-radius: 5px; /* Adicionado para o modo matéria */
+  font-family: 'Geist', sans-serif; /* Garante a fonte correta */
+  font-size: 1rem; /* Tamanho de fonte padrão */
 }
 
-.materia-row:hover {
-  background-color: #cf7100; /* Tom mais escuro no hover */
-  transform: scale(1.01);
+.barra-resumo:hover {
+  background-color: #e67e22; /* Laranja mais escuro no hover */
 }
 
-.cell-nome {
-  font-weight: 600;
-  flex: 2;
+
+/* --- Estilos Específicos para MATÉRIA --- */
+.barra-materia {
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr; /* Layout para matéria */
+  margin-bottom: 8px;
 }
 
-.cell {
-  flex: 1;
+
+/* --- Estilos Específicos para REFERÊNCIA (Modo Acordeão) --- */
+.barra-wrapper {
+  background-color: #fdebd0; /* Laranja bem claro para o fundo do acordeão */
+  margin-bottom: 8px;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.barra-wrapper .barra-resumo {
+  border-radius: 0; /* Remove o radius da barra quando no modo acordeão */
+}
+
+/* Quando o acordeão está aberto */
+.barra-wrapper.aberta .barra-resumo {
+  background-color: #e67e22; /* Laranja mais escuro quando aberto */
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.barra-referencia {
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 50px; /* Layout para referência, com espaço para a seta */
+}
+
+.icone-seta {
   text-align: center;
-  color: #fefefe;
-  opacity: 0.95;
+  font-size: 1.2em;
+  font-family: monospace; /* Garante que a seta seja renderizada corretamente */
 }
 
-.last-cell {
-  font-weight: 500;
+.barra-detalhes {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1.5fr;
+  gap: 20px;
+  padding: 20px;
+  color: #333;
 }
 
-.arrow-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 10px;
+.detalhes-imagem img {
+  width: 150px;
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.arrow-icon {
-  width: 20px;
-  height: 20px;
-  color: #fff;
-  transition: transform 0.2s ease-in-out;
+.detalhes-info p, .detalhes-links p {
+  margin: 0 0 8px 0;
 }
 
-.materia-row:hover .arrow-icon {
-  transform: translateX(3px);
+.detalhes-info p strong, .detalhes-links p strong {
+  display: inline-block;
+  min-width: 80px;
 }
+
+.detalhes-links a {
+  color: #d35400;
+  word-break: break-all;
+}
+

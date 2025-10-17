@@ -1,0 +1,97 @@
+
+:host {
+  --cor-laranja: #f39c12;
+  --cor-laranja-hover: #e67e22;
+  --cor-fundo: #f4f7f6;
+  --cor-texto-escuro: #333;
+  --cor-texto-claro: #fff;
+  --sombra-padrao: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.disciplina-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--cor-fundo);
+  font-family: 'Geist', sans-serif;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--cor-texto-escuro);
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 1rem;
+}
+
+.secao {
+  margin-bottom: 1.5rem;
+  background-color: var(--cor-texto-claro);
+  border-radius: 8px;
+  box-shadow: var(--sombra-padrao);
+  overflow: hidden;
+
+.secao-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  background-color: var(--cor-laranja);
+  color: var(--cor-texto-claro);
+}
+
+.secao-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.edit-icon {
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.edit-icon:hover {
+  transform: rotate(45deg);
+  color: #fdebd0;
+}
+
+.secao-body {
+  padding: 1.5rem;
+  color: var(--cor-texto-escuro);
+  line-height: 1.6;
+}
+
+.secao-body p,
+.secao-body ul {
+  margin: 0;
+}
+
+.secao-body ul {
+  padding-left: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.btn-adicionar {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cor-texto-claro);
+  background-color: var(--cor-laranja);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: var(--sombra-padrao);
+  transition: background-color 0.2s ease;
+}
+
+.btn-adicionar:hover {
+  background-color: var(--cor-laranja-hover);
+}}

@@ -1,38 +1,23 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-// A interface Materia deve ser definida ou importada aqui
-// Vou definir a interface novamente aqui para garantir que o componente filho a reconheça.
-interface Materia {
-  id: number;
-  nome: string;
-  codigo: string;
-  curso: string;
-  cargaHoraria: number;
-  tipo: string;
-  classificacao: string;
-}
+import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-barra-clique',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './barra-clique.component.html',
-  // O CSS deve estar aqui para os estilos laranjas
-  styleUrls: ['./barra-clique.component.css'] 
+  styleUrls: ['./barra-clique.component.css'],
+  standalone: true
 })
 export class BarraCliqueComponent {
-  
-  @Input() materia!: Materia; 
 
-  @Input() label: string = '';
-  
-  // Evento de clique para notificar o componente pai
+  @Input() materia?: { id?: number, nome?: string, curso?: string, cargaHoraria?: number, tipo?: string, classificacao?: string };
   @Output() barClicked = new EventEmitter<void>();
-  
-  @Input() Materia: Materia | null = null; // Para lista de matérias
+  @Input() referencia?: { id?: number, tituloLivro?: string, autor?: string, tipo?: string, edicao?: string, categoria?: string, imagemUrl?: string, ano?:number, isbn?:string, link?:string };
+  @Input() estaAberta?: boolean=false;
+  router: any;
 
-  @Input() isHeader: boolean = false; // Flag para saber se é um cabeçalho de acordeão
-  
-  @Input() isOpen: boolean = false;    // Estado para girar a seta
+
+
+    onBarClick(): void {
+    this.barClicked.emit();
+  }
 }

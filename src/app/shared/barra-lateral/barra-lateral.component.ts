@@ -26,13 +26,14 @@ export class SidebarComponent {
   
   public isAdmin = this.authService.isAdmin;
 
-  // Itens de navegação com os nomes dos Material Icons que você forneceu
+  // Itens de navegação com o novo botão adicionado
   public navItems: NavItem[] = [
     { icon: 'home', label: 'Página inicial', route: '/app/materias' },
     { icon: 'people', label: 'Professores', route: '/app/professores' },
     { icon: 'menu_book', label: 'Disciplinas', route: '/app/disciplinas' },
     { icon: 'calendar_today', label: 'Cronogramas', route: '/app/cronogramas' },
     { icon: 'grid_view', label: 'Matrizes Curriculares', route: '/app/matriz-curricular' },
+    { icon: 'import_contacts', label: 'Referencias bibliograficas', route: '/app/referencias-bibliograficas' }
   ];
 
   handleLogout(): void {

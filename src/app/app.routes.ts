@@ -1,89 +1,74 @@
 import { Routes } from '@angular/router';
+
+// ROTAS PÚBLICAS
 import { LoginComponent } from './features/login/login.component';
 import { RecuperarSenhaComponent } from './features/recuperar-senha/recuperar-senha.component';
+
+// LAYOUT PRINCIPAL (ROTAS PROTEGIDAS)
 import { MainLayoutComponent } from './features/main-layout-component/main-layout-component.component';
-import { ProfessoresComponent } from './features/professores/professores.component';
-import { DisciplinasComponent } from './features/disciplinas/disciplinas.component';
-import { MatrizCurricularComponent } from './features/matriz-curricular/matriz-curricular.component';
-import { MateriasCadastradasComponent } from './features/materias-cadastradas/materias-cadastradas.component';
-// import { AuthGuard } from './features/core/guards/auth.guard'; // Importe o AuthGuard se estiver usando autenticação
+
 export const routes: Routes = [
+
   // 1. ROTAS PÚBLICAS (Sem Sidebar)
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'forgot-password', component: RecuperarSenhaComponent },
 
-  // 2. ROTAS PROTEGIDAS (Com Sidebar - Component: MainLayoutComponent)
+  // 2. ROTAS PROTEGIDAS (Com Sidebar)
   {
     path: 'app',
     component: MainLayoutComponent,
-    // canActivate: [AuthGuard],
     children: [
-      // ROTA PADRÃO (Se acessar /app, redireciona para a tela de Matérias Cadastradas)
-      {
-        path: '',
-        redirectTo: 'materias-cadastradas', // <-- Redireciona para a nova tela
-        pathMatch: 'full',
-      },
+      // Rota padrão redireciona para matérias cadastradas
+      { path: '', redirectTo: 'materias-cadastradas', pathMatch: 'full' },
 
-      // Página Inicial (Rotas da Sidebar)
-      // Se você quiser que "Página Inicial" abra a tela de Matérias Cadastradas.
-      {
-        path: 'pagina-inicial',
-        loadComponent: () =>
-          import(
-            './features/materias-cadastradas/materias-cadastradas.component'
-          ).then((m) => m.MateriasCadastradasComponent),
+      // Rota para Matérias Cadastradas (antiga pagina-inicial)
+      { 
+        path: 'materias-cadastradas', 
+        loadComponent: () => import('./features/materias-cadastradas/materias-cadastradas.component')
+                              .then(m => m.MateriasCadastradasComponent)
       },
 
       // Professores
-      {
-        path: 'professores',
-        loadComponent: () =>
-          import('./features/professores/professores.component').then(
-            (m) => m.ProfessoresComponent
-          ),
+      { 
+        path: 'professores', 
+        loadComponent: () => import('./features/professores/professores.component')
+                              .then(m => m.ProfessoresComponent)
       },
 
       // Disciplinas
-      {
-        path: 'disciplinas',
-        loadComponent: () =>
-          import('./features/disciplinas/disciplinas.component').then(
-            (m) => m.DisciplinasComponent
-          ),
-      },
-
-      // Matérias Cadastradas (Rota principal da tela que está sendo desenvolvida)
-      {
-        path: 'materias-cadastradas', 
-        loadComponent: () =>
-          import(
-            './features/materias-cadastradas/materias-cadastradas.component'
-          ).then((m) => m.MateriasCadastradasComponent),
+      { 
+        path: 'disciplinas', 
+        loadComponent: () => import('./features/disciplinas/disciplinas.component')
+                              .then(m => m.DisciplinasComponent)
       },
 
       // Matriz Curricular
+      { 
+        path: 'matriz-curricular', 
+        loadComponent: () => import('./features/matriz-curricular/matriz-curricular.component')
+                              .then(m => m.MatrizCurricularComponent)
+      },
+      
+      // ✅ CORREÇÃO: Rota movida para dentro dos children
       {
-        path: 'matriz-curricular',
-        loadComponent: () =>
-          import(
-            './features/matriz-curricular/matriz-curricular.component'
-          ).then((m) => m.MatrizCurricularComponent),
+        path: 'referencias-bibliograficas',
+        loadComponent: () => import('./features/referencias-bibliograficas/referencias-bibliograficas.component')
+                              .then(m => m.ReferenciasBibliograficasComponent)
       },
 
-      { 
-  path: 'materia/:id', // <--- Rota que aceita o ID como parâmetro
-  loadComponent: () => import('./features/detalhe-materias/detalhe-materias.component').then(m => m.DetalheMateriasComponent) 
-},
+      // Detalhes da Matéria
+     { 
+        path: 'materia/:id', 
+        loadComponent: () => import('./features/detalhe-materias/detalhe-materias.component')
+                              .then(m => m.DetalheMateriasComponent)
+      },
       
-      // Rotas futuras de Cronogramas, etc., devem ser adicionadas aqui
-
       // Fallback para rotas protegidas não encontradas
-      { path: '**', redirectTo: 'materias-cadastradas' },
-    ],
+      { path: '**', redirectTo: 'materias-cadastradas' }
+    ]
   },
 
-  // 3. Rota Coringa (Fallback Global)
-  { path: '**', redirectTo: 'login' },
+  // 3. Rota Coringa Global (Fallback para tudo que não for encontrado)
+  { path: '**', redirectTo: 'login' }
 ];

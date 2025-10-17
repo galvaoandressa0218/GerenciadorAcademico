@@ -1,0 +1,27 @@
+<div class="referencias-container">
+  <header class="page-header">
+    <h1>Referencias Cadastradas</h1>
+  </header>
+
+  <div class="table-header">
+    <span>Título</span>
+    <span>Autor(a)</span>
+    <span>Tipo</span>
+    <span>edição</span>
+    <span>Categoria</span>
+  </div>
+
+  <div class="referencias-list">
+    <app-barra-clique
+      *ngFor="let ref of referencias"
+      [estaAberta]="ref.id === referenciaAbertaId"
+      (barClicked)="toggleReferencia(ref.id)">
+    </app-barra-clique>
+  </div>
+
+  <div class="actions">
+    <button class="btn-adicionar" (click)="adicionarReferencia()">
+      + Adicionar Referencia
+    </button>
+  </div>
+</div>
