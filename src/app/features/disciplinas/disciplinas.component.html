@@ -5,7 +5,6 @@
   </header>
 
   <div class="content-table-wrapper">
-    
     <table class="disciplines-table">
       <thead>
         <tr>
@@ -18,20 +17,16 @@
       </thead>
       <tbody>
         <ng-container *ngFor="let disc of disciplines()">
-          
           <tr class="discipline-row" (click)="toggleExpand(disc)">
             <td class="col-nome nome-expand">
               <div class="nome-principal">{{ disc.nome }} {{ disc.codigo }}</div>
               <div class="desc-toggle">descrição</div>
             </td>
             <td class="col-curso">{{ disc.curso }}</td>
-            <td class="col-ch">{{ disc.cargaHoraria }}</td>
+            <td class="col-ch">{{ disc.cargaHoraria }}h</td>
             <td class="col-tipo">{{ disc.tipo }}</td>
-            <td class="col-class classificacao">
-              {{ disc.classificacao }}
-            </td>
+            <td class="col-class classificacao">{{ disc.classificacao }}</td>
           </tr>
-
           <tr *ngIf="disc.expanded" class="description-row">
             <td colspan="5" class="description-content">
               <p>{{ disc.descricao }}</p>
@@ -48,5 +43,42 @@
       (clickEvent)="handleAddDiscipline()"
     ></app-botao-adicionar>
   </footer>
-
 </div>
+
+<app-pop-up
+  *ngIf="isModalVisible()"
+  [title]="'Adicionar Nova Disciplina'"
+  (close)="handleCloseModal()"
+  (save)="handleSaveDiscipline()"
+>
+  <form [formGroup]="disciplinaForm" class="form-container">
+    <div class="form-group">
+      <label for="descricao">Nome da Disciplina</label>
+      <input id="descricao" type="text" formControlName="descricao" placeholder="Ex: Engenharia de Software">
+    </div>
+
+    <div class="form-group">
+      <label for="sigla">Sigla</label>
+      <input id="sigla" type="text" formControlName="sigla" placeholder="Ex: EGS-101">
+    </div>
+    
+    <div class="form-group">
+      <label for="carga_horaria">Carga Horária</label>
+      <input id="carga_horaria" type="number" formControlName="carga_horaria" placeholder="Ex: 60">
+    </div>
+
+    <div class="form-group">
+      <label for="tipo">Tipo</label>
+      <select id="tipo" formControlName="tipo">
+        <option *ngFor="let tipo of tiposDisciplina" [value]="tipo">{{ tipo }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="classificacao">Classificação</label>
+      <select id="classificacao" formControlName="classificacao">
+        <option *ngFor="let class of classificacoesDisciplina" [value]="class">{{ class }}</option>
+      </select>
+    </div>
+  </form>
+</app-pop-up>

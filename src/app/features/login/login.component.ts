@@ -1,10 +1,9 @@
 import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; 
-import { AuthService, AuthResponse } from '../core/services/auth.service';
-import { BotaoLoginComponent } from './../../shared/botao-login/botao-login.component';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../features/core/services/auth.service';
+import { BotaoLoginComponent } from '../../shared/botao-login/botao-login.component';
 import { Router, RouterLink } from '@angular/router';
-import { RecuperarSenhaComponent } from '../recuperar-senha/recuperar-senha.component';
 
 @Component({
   selector: 'app-login',
@@ -14,21 +13,22 @@ import { RecuperarSenhaComponent } from '../recuperar-senha/recuperar-senha.comp
     FormsModule,
     BotaoLoginComponent,
     RouterLink,
-],
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent { 
+export class LoginComponent {
   username = signal('');
   password = signal('');
   errorMessage = signal<string | null>(null);
   isLoading = signal(false);
 
-  // Injeção usando inject() - PRÁTICA STANDALONE RECOMENDADA
   private authService = inject(AuthService);
   private router = inject(Router);
 
   handleLogin(): void {
+    if (this.isLoading()) return; // Previne múltiplos cliques
+
     this.errorMessage.set(null);
     this.isLoading.set(true);
 
@@ -38,13 +38,14 @@ export class LoginComponent {
     };
 
     this.authService.login(credentials).subscribe({
-      next: (response: AuthResponse) => {
+      next: () => {
         this.isLoading.set(false);
-        this.router.navigate(['/app/matrizes']); // Redireciona para a futura área protegida
+        this.router.navigate(['/app/matriz-curricular']);
       },
-      error: (err: any) => {
+      error: (err) => {
         this.isLoading.set(false);
         this.errorMessage.set('Usuário ou senha inválidos. Tente novamente.');
+        console.error('Falha no login:', err);
       }
     });
   }

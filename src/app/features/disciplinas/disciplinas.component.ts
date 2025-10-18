@@ -1,53 +1,87 @@
-import { Component, inject, signal } from '@angular/core';
+// CAMINHO: src/app/features/disciplinas/disciplinas.component.ts
+// ARQUIVO COMPLETO PARA VERIFICAÇÃO
+
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BotaoAdicionarComponent } from '../../shared/botao-adicionar/botao-adicionar.component';
-
-interface Disciplina {
-  nome: string;
-  codigo: string;
-  curso: string;
-  cargaHoraria: string;
-  tipo: string;
-  classificacao: string;
-  descricao: string;
-  expanded: boolean;
-}
+import { PopUpComponent } from '../../shared/pop-up-forms/pop-up-forms.component';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DisciplinaService } from '../../features/core/services/disciplina.service';
+import { DisciplinaTabela } from '../../features/core/model/materia.model';
 
 @Component({
   selector: 'app-disciplinas',
   standalone: true,
   imports: [
     CommonModule, 
-    BotaoAdicionarComponent, // Botão de Adição
+    BotaoAdicionarComponent,
+    PopUpComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './disciplinas.component.html',
   styleUrls: ['./disciplinas.component.css']
 })
-export class DisciplinasComponent {
+export class DisciplinasComponent implements OnInit {
+  private disciplinaService = inject(DisciplinaService);
+  private fb = inject(FormBuilder);
 
-  // Dados mockados de exemplo
-  public disciplines = signal<Disciplina[]>([
-    { 
-      nome: 'Arquitetura de Software', 
-      codigo: '(ARQS-20002)', 
-      curso: 'Bes', 
-      cargaHoraria: '60h', 
-      tipo: 'presencial', 
-      classificacao: 'Pratica', 
-      descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 
-      expanded: false 
-    },
-    { nome: 'Arquitetura de Software', codigo: '(ARQS-20002)', curso: 'Bes', cargaHoraria: '60h', tipo: 'presencial', classificacao: 'Pratica', descricao: '', expanded: false },
-    { nome: 'Arquitetura de Software', codigo: '(ARQS-20002)', curso: 'Bes', cargaHoraria: '60h', tipo: 'presencial', classificacao: 'Pratica', descricao: '', expanded: false },
-    { nome: 'Arquitetura de Software', codigo: '(ARQS-20002)', curso: 'Bes', cargaHoraria: '60h', tipo: 'presencial', classificacao: 'Pratica', descricao: '', expanded: false },
-    { nome: 'Arquitetura de Software', codigo: '(ARQS-20002)', curso: 'Bes', cargaHoraria: '60h', tipo: 'presencial', classificacao: 'Pratica', descricao: '', expanded: false },
-  ]);
+  public disciplines = signal<DisciplinaTabela[]>([]);
+  public isModalVisible = signal(false);
+  public disciplinaForm: FormGroup;
 
-  toggleExpand(discipline: Disciplina): void {
-    discipline.expanded = !discipline.expanded;
+  tiposDisciplina = ['EAD', 'PRESENCIAL'];
+  classificacoesDisciplina = ['TEORICA', 'PRATICA', 'ESTAGIO'];
+
+  constructor() {
+    this.disciplinaForm = this.fb.group({
+      sigla: ['', Validators.required],
+      descricao: ['', Validators.required],
+      carga_horaria: [null, [Validators.required, Validators.min(1)]],
+      tipo: ['PRESENCIAL', Validators.required],
+      classificacao: ['TEORICA', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {
+    this.carregarDisciplinas();
+  }
+
+  carregarDisciplinas(): void {
+    // PASSO 1: Esta é a linha onde o erro provavelmente está.
+    // Verifique se a chamada abaixo é exatamente "this.disciplinaService.getDisciplinasParaTabela()"
+    this.disciplinaService.getDisciplinasParaTabela().subscribe({
+      next: (data) => {
+        const disciplinasParaTabela: DisciplinaTabela[] = data.map(d => ({ ...d, expanded: false }));
+        this.disciplines.set(disciplinasParaTabela);
+      },
+      error: (err) => console.error('Erro ao carregar disciplinas:', err)
+    });
+  }
+
+  toggleExpand(disciplina: DisciplinaTabela): void {
+    disciplina.expanded = !disciplina.expanded;
   }
 
   handleAddDiscipline(): void {
-    console.log('Abrindo modal/formulario para adicionar disciplina...');
+    this.disciplinaForm.reset({ tipo: 'PRESENCIAL', classificacao: 'TEORICA' });
+    this.isModalVisible.set(true);
+  }
+
+  handleCloseModal(): void {
+    this.isModalVisible.set(false);
+  }
+
+  handleSaveDiscipline(): void {
+    if (this.disciplinaForm.invalid) {
+      console.error('Formulário inválido!');
+      return;
+    }
+    this.disciplinaService.criarDisciplina(this.disciplinaForm.value).subscribe({
+      next: () => {
+        this.handleCloseModal();
+        this.carregarDisciplinas();
+      },
+      error: (err:any) => console.error('Erro ao salvar disciplina:', err)
+    });
   }
 }

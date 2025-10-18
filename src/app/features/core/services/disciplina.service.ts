@@ -2,18 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environment';
-
-// Interface base (ajuste conforme o seu backend)
-export interface Disciplina {
-  id?: number;
-  nome: string;
-  codigo: string;
-  curso?: string;
-  cargaHoraria: number;
-  tipo: string;
-  classificacao: string;
-  descricao?: string;
-}
+import { Disciplina } from '../model/disciplina.model'; // Importar o modelo unificado
 
 @Injectable({
   providedIn: 'root'
@@ -23,37 +12,28 @@ export class DisciplinaService {
   private apiUrl = `${environment.apiUrl}/disciplinas`;
 
   /**
-   * Retorna todas as disciplinas
+   * Busca a lista de todas as disciplinas.
+   * A API deve retornar uma lista com os campos básicos.
    */
-  getAll(): Observable<Disciplina[]> {
+  getDisciplinas(): Observable<Disciplina[]> {
     return this.http.get<Disciplina[]>(this.apiUrl);
   }
 
   /**
-   * Retorna uma disciplina específica
+   * Busca os detalhes completos de UMA disciplina pelo seu ID.
+   * A API deve retornar um objeto com todos os campos, incluindo o programa.
    */
-  getById(id: number): Observable<Disciplina> {
+  getDisciplinaById(id: number): Observable<Disciplina> {
     return this.http.get<Disciplina>(`${this.apiUrl}/${id}`);
   }
 
   /**
-   * Cria uma nova disciplina
+   * Salva uma seção específica do programa da disciplina.
    */
-  create(disciplina: Disciplina): Observable<Disciplina> {
-    return this.http.post<Disciplina>(this.apiUrl, disciplina);
-  }
-
-  /**
-   * Atualiza uma disciplina existente
-   */
-  update(id: number, disciplina: Disciplina): Observable<Disciplina> {
-    return this.http.put<Disciplina>(`${this.apiUrl}/${id}`, disciplina);
-  }
-
-  /**
-   * Exclui uma disciplina
-   */
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  saveSecao(disciplinaId: number, secao: string, novoConteudo: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${disciplinaId}/programa`, {
+      secaoAAtualizar: secao,
+      conteudo: novoConteudo
+    });
   }
 }

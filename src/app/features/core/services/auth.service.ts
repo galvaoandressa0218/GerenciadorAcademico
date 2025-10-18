@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, tap, BehaviorSubject, of, delay } from 'rxjs';
+import { Observable, tap, BehaviorSubject, of, delay, throwError } from 'rxjs';
+import { environment } from '../../../../environment';
 
 interface LoginRequest {
   usuario: string;
@@ -15,15 +16,10 @@ export interface AuthResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly apiUrl = 'http://localhost:8080/auth';
+  private readonly apiUrl = `${environment.apiUrl}/auth`;
 
   private http = inject(HttpClient);
   private router = inject(Router);
-
-  private readonly MOCK_USERS = {
-    'admin_test': { token: 'token-admin', role: 'Admin' as 'Admin' },
-    'professor_test': { token: 'token-professor', role: 'Professor' as 'Professor' }
-  };
 
   private userRoleSubject = new BehaviorSubject<'Admin' | 'Professor' | null>(null);
   public userRole$ = this.userRoleSubject.asObservable();
@@ -36,34 +32,21 @@ export class AuthService {
   }
 
   login(credentials: LoginRequest): Observable<AuthResponse> {
-    const user = this.MOCK_USERS[credentials.usuario as keyof typeof this.MOCK_USERS];
-
-    if (user && credentials.senha === '123456') {
-      return of(user).pipe(
-        delay(500),
-        tap(response => {
-          localStorage.setItem('auth_token', response.token);
-          localStorage.setItem('user_role', response.role);
-          
-          this.userRoleSubject.next(response.role);
-          
-          this.router.navigate(['/app/matrizes']); 
-        })
-      );
-    } else {
-      return new Observable<AuthResponse>(observer => {
-        observer.error({ status: 401, error: { message: 'Credenciais inválidas' } });
-      });
-    }
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
+      tap(response => {
+        localStorage.setItem('auth_token', response.token);
+        localStorage.setItem('user_role', response.role);
+        this.userRoleSubject.next(response.role);
+      })
+    );
   }
 
   forgotPassword(email: string): Observable<void> {
     if (email.includes('@')) {
+      // Simula uma chamada de API, já que não temos o endpoint no backend
       return of(undefined).pipe(delay(500));
     } else {
-      return new Observable<void>(observer => {
-        observer.error({ status: 400 });
-      });
+      return throwError(() => ({ status: 400, error: { message: 'Email inválido' } }));
     }
   }
 

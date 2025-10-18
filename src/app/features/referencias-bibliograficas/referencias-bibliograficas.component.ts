@@ -1,8 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BarraCliqueComponent } from '../../shared/barra-clique/barra-clique.component';
-import { Referencia } from '../core/model/referencias.model';
-import { ReferenciaService } from '../core/services/referencias.service'
+import { Referencia } from '../../features/core/model/referencias.model';
+import { ReferenciaService } from '../../features/core/services/referencias.service';
 
 @Component({
   selector: 'app-referencias-bibliograficas',
@@ -14,7 +14,6 @@ import { ReferenciaService } from '../core/services/referencias.service'
 export class ReferenciasBibliograficasComponent implements OnInit {
   
   private referenciaService = inject(ReferenciaService);
-
   referencias: Referencia[] = [];
   referenciaAbertaId: number | null = null;
   
@@ -27,7 +26,7 @@ export class ReferenciasBibliograficasComponent implements OnInit {
       next: (data: Referencia[]) => {
         this.referencias = data;
         if (this.referencias.length > 0) {
-          this.referenciaAbertaId = this.referencias[0].id;
+          
         }
       },
       error: (err: any) => {

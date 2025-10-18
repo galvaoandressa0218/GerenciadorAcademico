@@ -1,4 +1,3 @@
-// Esta interface será a "única fonte da verdade"
 export interface Referencia {
   id: number;
   titulo: string;
@@ -7,10 +6,9 @@ export interface Referencia {
   edicao: string;
   categoria: 'Basica' | 'Complementar';
   imagemUrl: string;
-  tituloCompleto: string;
   local: string;
   editora: string;
   ano: number;
   isbn: string;
-  link?: string;
+  url?: string; 
 }
