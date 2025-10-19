@@ -3,18 +3,18 @@
     <main class="content-area">
       <header class="content-header">
         <div class="info">
-          <h1>{{ m.nomeCurso }}</h1>
-          <p>Habilitação: BACHARELADO</p>
-          <p>Campos: Pituaçu Turno: MATUTINO</p>
+          <h1>{{ m.habilitacao }}</h1>
+          <p>Matriz: {{ m.nomeMatriz }}</p>
+          <p>Campus: {{ m.campus }} | Turno: {{ m.turno }}</p>
         </div>
         <button class="btn-organizar" (click)="openOrganizarModal()">Organizar Matrizes</button>
       </header>
 
       <div class="curriculum-accordion">
-        @for(semestre of m.semestres; track semestre.id; let i = $index) {
+        @for(semestre of m.semestres; track semestre.semestre; let i = $index) {
           <div class="accordion-item">
             <app-barra-clique
-              [title]="semestre.nome"
+              [title]="semestre.semestre + 'º Semestre'"
               [showArrow]="true"
               [estaAberta]="openSemesterIndex() === i"
               (barClicked)="toggleSemester(i)">
@@ -22,29 +22,25 @@
 
             @if(openSemesterIndex() === i) {
               <div class="accordion-content">
-                @for(d of semestre.disciplinas; track d.codigo) {
+                @for(d of semestre.disciplinas; track d.id) {
                   <div class="discipline-row">
                     <span class="discipline-name">{{ d.nome }} ({{ d.codigo }})</span>
-                    <span>Bes</span>
+                    <span>--</span>
                     <span>{{ d.cargaHoraria }}h</span>
-                    <span>{{ d.modalidade }}</span>
-                    <span>{{ d.pratica ? 'Pratica' : 'Teórica' }}</span>
+                    <span>{{ d.tipo }}</span>
+                    <span>{{ d.classificacao }}</span>
                   </div>
                 }
               </div>
             }
           </div>
         }
-        
-        <div class="accordion-item">
-           <app-barra-clique title="Opcionais / Eletivas" [showArrow]="true" [estaAberta]="openSemesterIndex() === 'opcionais'" (barClicked)="toggleSemester('opcionais')"></app-barra-clique>
-           </div>
       </div>
       
       <div class="complementary-hours">
         <label for="comp_hours">componentes complementares</label>
         <div class="input-group">
-          <input type="text" id="comp_hours" [value]="m.chComponentesComplementares" readonly>
+          <input type="text" id="comp_hours" [value]="m.horasComplementares" readonly>
           <span>CH</span>
         </div>
       </div>
@@ -52,14 +48,16 @@
   } @else {
     @if(isLoading()) {
       <p>Carregando matriz curricular...</p>
+    } @else if (error()) {
+      <p style="color: red;">{{ error() }}</p>
     } @else {
       <p style="color: red;">Não foi possível carregar a matriz curricular.</p>
     }
   }
 </div>
 
-@if (isOrganizarModalVisible()) {
-  <app-organizar-matriz 
+@if(isOrganizarModalVisible()) {
+  <app-organizar-matriz
     (close)="closeOrganizarModal()"
     (save)="handleSaveOrganizar($event)">
   </app-organizar-matriz>

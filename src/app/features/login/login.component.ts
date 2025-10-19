@@ -8,12 +8,7 @@ import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    BotaoLoginComponent,
-    RouterLink,
-  ],
+  imports: [ CommonModule, FormsModule, BotaoLoginComponent, RouterLink ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -27,7 +22,7 @@ export class LoginComponent {
   private router = inject(Router);
 
   handleLogin(): void {
-    if (this.isLoading()) return; // Previne múltiplos cliques
+    if (this.isLoading()) return;
 
     this.errorMessage.set(null);
     this.isLoading.set(true);
@@ -40,7 +35,7 @@ export class LoginComponent {
     this.authService.login(credentials).subscribe({
       next: () => {
         this.isLoading.set(false);
-        this.router.navigate(['/app/matriz-curricular']);
+        this.router.navigate(['/app/cursos']);
       },
       error: (err) => {
         this.isLoading.set(false);

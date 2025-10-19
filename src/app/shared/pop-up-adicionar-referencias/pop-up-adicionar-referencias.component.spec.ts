@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PopUpAdicionarReferenciasComponent } from './pop-up-adicionar-referencias.component';
+import { PopUpAdicionarReferenciaComponent } from '../pop-up-adicionar-referencias/pop-up-adicionar-referencias.component';
 
-describe('PopUpAdicionarReferenciasComponent', () => {
-  let component: PopUpAdicionarReferenciasComponent;
-  let fixture: ComponentFixture<PopUpAdicionarReferenciasComponent>;
+describe('PopUpAdicionarReferenciaComponent', () => {
+  let component: PopUpAdicionarReferenciaComponent;
+  let fixture: ComponentFixture<PopUpAdicionarReferenciaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PopUpAdicionarReferenciasComponent]
+      imports: [PopUpAdicionarReferenciaComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(PopUpAdicionarReferenciasComponent);
+
+    fixture = TestBed.createComponent(PopUpAdicionarReferenciaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

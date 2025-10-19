@@ -1,9 +1,8 @@
 import { Injectable, inject, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-// Adicionar as importações que faltavam para o forgotPassword
-import { Observable, tap, BehaviorSubject, of, delay, throwError } from 'rxjs';
+import { Observable, tap, BehaviorSubject, of, throwError, catchError } from 'rxjs';
 import { environment } from '../../../../environment';
 
 interface LoginRequest {
@@ -18,7 +17,7 @@ export interface AuthResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly apiUrl = `${environment.apiUrl}/auth`;
+  private readonly apiUrl = `${environment.apiUrl}/api/auth`;
 
   private http = inject(HttpClient);
   private router = inject(Router);
@@ -36,26 +35,22 @@ export class AuthService {
   }
 
   login(credentials: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
+    const basicAuthHeader = 'Basic ' + btoa(credentials.usuario + ':' + credentials.senha);
+    const headers = new HttpHeaders({ Authorization: basicAuthHeader });
+
+    return this.http.get<AuthResponse>(`${this.apiUrl}/validate`, { headers }).pipe(
       tap(response => {
         if (isPlatformBrowser(this.platformId)) {
-          localStorage.setItem('auth_token', response.token);
+          localStorage.setItem('auth_token', basicAuthHeader);
           localStorage.setItem('user_role', response.role);
         }
         this.userRoleSubject.next(response.role);
+      }),
+      catchError(error => {
+        console.error("Login failed in AuthService", error);
+        return throwError(() => new Error('Usuário ou senha inválidos'));
       })
     );
-  }
-
-  // --- MÉTODO ADICIONADO DE VOLTA ---
-  forgotPassword(email: string): Observable<void> {
-    if (email.includes('@')) {
-      // Simula uma chamada de API, já que não temos o endpoint no backend
-      // Em uma implementação real, seria: return this.http.post<void>(`${this.apiUrl}/forgot-password`, { email });
-      return of(undefined).pipe(delay(500));
-    } else {
-      return throwError(() => ({ status: 400, error: { message: 'Email inválido' } }));
-    }
   }
 
   logout(): void {
@@ -76,5 +71,13 @@ export class AuthService {
       return !!localStorage.getItem('auth_token');
     }
     return false;
+  }
+  
+  forgotPassword(email: string): Observable<void> {
+    if (email && email.includes('@')) {
+      return of(undefined);
+    } else {
+      return throwError(() => new Error('Email inválido'));
+    }
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DisciplinaService } from '.././core/services/disciplina.service';
-import { Disciplina } from '.././core/model/disciplina.model'; // Importar o modelo unificado
+import { Disciplina } from '.././core/model/disciplina.model'; 
 import { switchMap } from 'rxjs/operators';
 
 @Component({
@@ -14,9 +14,7 @@ export class DetalheMateriasComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private disciplinaService = inject(DisciplinaService);
 
-  // A propriedade agora é do tipo 'Disciplina', como você queria. O erro foi resolvido.
   public disciplina: Disciplina | null = null;
-  
   public isLoading = signal(true);
   public error = signal<string | null>(null);
 
@@ -29,7 +27,6 @@ export class DetalheMateriasComponent implements OnInit {
           this.isLoading.set(false);
           return [];
         }
-        // O método do serviço agora retorna o tipo 'Disciplina'
         return this.disciplinaService.getDisciplinaById(id);
       })
     ).subscribe({

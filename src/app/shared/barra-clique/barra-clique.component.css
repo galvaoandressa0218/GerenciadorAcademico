@@ -1,32 +1,27 @@
-/* --- Estilos Comuns --- */
 .barra-resumo {
   display: grid;
   align-items: center;
   padding: 15px 20px;
-  background-color: #f39c12; /* Laranja */
+  background-color: #f39c12; 
   color: #fff;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  border-radius: 5px; /* Adicionado para o modo matéria */
-  font-family: 'Geist', sans-serif; /* Garante a fonte correta */
-  font-size: 1rem; /* Tamanho de fonte padrão */
+  border-radius: 5px; 
+  font-family: 'Geist', sans-serif; 
+  font-size: 1rem; 
 }
 
 .barra-resumo:hover {
-  background-color: #e67e22; /* Laranja mais escuro no hover */
+  background-color: #e67e22; 
 }
 
-
-/* --- Estilos Específicos para MATÉRIA --- */
 .barra-materia {
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr; /* Layout para matéria */
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr; 
   margin-bottom: 8px;
 }
 
-
-/* --- Estilos Específicos para REFERÊNCIA (Modo Acordeão) --- */
 .barra-wrapper {
-  background-color: #fdebd0; /* Laranja bem claro para o fundo do acordeão */
+  background-color: #fdebd0; 
   margin-bottom: 8px;
   border-radius: 5px;
   overflow: hidden;
@@ -34,24 +29,23 @@
 }
 
 .barra-wrapper .barra-resumo {
-  border-radius: 0; /* Remove o radius da barra quando no modo acordeão */
+  border-radius: 0; 
 }
 
-/* Quando o acordeão está aberto */
 .barra-wrapper.aberta .barra-resumo {
-  background-color: #e67e22; /* Laranja mais escuro quando aberto */
+  background-color: #e67e22; 
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 .barra-referencia {
-  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 50px; /* Layout para referência, com espaço para a seta */
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 50px; 
 }
 
 .icone-seta {
   text-align: center;
   font-size: 1.2em;
-  font-family: monospace; /* Garante que a seta seja renderizada corretamente */
+  font-family: monospace; 
 }
 
 .barra-detalhes {

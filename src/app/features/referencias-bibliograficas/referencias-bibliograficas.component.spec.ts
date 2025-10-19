@@ -10,8 +10,8 @@ describe('ReferenciasBibliograficasComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ReferenciasBibliograficasComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ReferenciasBibliograficasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

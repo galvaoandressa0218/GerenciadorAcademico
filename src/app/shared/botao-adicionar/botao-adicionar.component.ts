@@ -2,13 +2,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-botao-adicionar', //  Novo seletor sem acento!
+  selector: 'app-botao-adicionar', 
   standalone: true,
   imports: [CommonModule],
   templateUrl: './botao-adicionar.component.html',
   styleUrls: ['./botao-adicionar.component.css']
 })
-export class BotaoAdicionarComponent { //
+export class BotaoAdicionarComponent {
   @Input() textoBotao: string = 'Ação';
   @Input() disabled: boolean = false;
   @Input() type: 'button' | 'submit' = 'button';

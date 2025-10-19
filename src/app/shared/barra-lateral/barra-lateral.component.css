@@ -1,16 +1,15 @@
-/* 1. Importa os ícones Material Icons */
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 .sidebar {
   width: 240px;
   background-color: #EAEAEA; 
   padding: 20px 10px;
-  min-height: 100vh; /* Usa min-height em vez de height */
+  min-height: 100vh; 
   flex-shrink: 0; 
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Para colocar o footer na parte inferior */
+  justify-content: space-between; 
 }
 
 .sidebar nav ul {
@@ -30,28 +29,24 @@
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Ícones */
 .sidebar nav li a .material-icons {
   margin-right: 20px; 
   font-size: 28px; 
 }
 
-/* Efeito ao passar o mouse: fica igual ao item ativo */
 .sidebar nav li a:hover {
   background-color: #5A5A5A;
   color: #FFFFFF; 
 }
 
-/* Estilo para o item ATIVO (selecionado) */
 .sidebar nav li a.active {
   background-color: #5A5A5A; 
   color: #FFFFFF; 
   font-weight: normal; 
 }
 
-/* Estilo para o botão Sair */
 .sidebar-footer {
-  margin-top: auto; /* Empurra o footer para baixo */
+  margin-top: auto; 
   padding: 20px 10px;
   border-top: 1px solid #d0d0d0;
 }

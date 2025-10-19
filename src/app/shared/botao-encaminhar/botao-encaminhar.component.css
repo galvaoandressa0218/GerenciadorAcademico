@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #e67e00; /* Laranja vivo */
+  background-color: #e67e00; 
   color: #fff;
   border-radius: 6px;
   padding: 10px 16px;
@@ -14,7 +14,7 @@
 }
 
 .materia-row:hover {
-  background-color: #cf7100; /* Tom mais escuro no hover */
+  background-color: #cf7100; 
   transform: scale(1.01);
 }
 

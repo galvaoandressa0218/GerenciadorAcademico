@@ -2,6 +2,27 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <h2>Adicionar Novo Curso</h2>
     <form [formGroup]="cursoForm">
+      <div class="form-field">
+        <label for="nome">Nome do Curso</label>
+        <input id="nome" type="text" formControlName="nome">
+      </div>
+      <div class="form-field">
+        <label for="turno">Turno</label>
+        <input id="turno" type="text" formControlName="turno">
+      </div>
+      <div class="form-field">
+        <label for="campus">Campus</label>
+        <input id="campus" type="text" formControlName="campus">
+      </div>
+      <div class="form-field">
+        <label for="habilitacao">Habilitação</label>
+        <input id="habilitacao" type="text" formControlName="habilitacao">
+      </div>
+      <div class="form-field">
+        <label for="ch">Carga Horária (CH)</label>
+        <input id="ch" type="number" formControlName="ch">
+      </div>
+
       <div class="modal-actions">
         <button type="button" class="save-button" (click)="onSave()" [disabled]="cursoForm.invalid">Salvar</button>
       </div>

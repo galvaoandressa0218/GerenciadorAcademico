@@ -11,52 +11,56 @@
 
   <div class="list-body">
     @for(ref of referencias(); track ref.id) {
-      <div class="item-wrapper">
-        <div class="item-row" (click)="toggleExpand(ref.id)">
-          <span>{{ ref.titulo }}</span>
-          <span>{{ ref.autor }}</span>
-          <span>{{ ref.tipo }}</span>
-          <span>{{ ref.edicao }}</span>
-          <span>{{ ref.categoria }}</span>
-          <div class="arrow-cell">
-             <svg class="arrow-icon" [class.expanded]="expandedReferenciaId() === ref.id" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
-          </div>
+    <div class="item-wrapper">
+      <div class="item-row" (click)="toggleExpand(ref.id)">
+        <span>{{ ref.titulo }}</span>
+        <span>{{ ref.autor }}</span>
+        <span>{{ ref.tipo }}</span>
+        <span>{{ ref.edicao }}</span>
+        <span>{{ ref.categoria }}</span>
+        <div class="arrow-cell">
+          <svg class="arrow-icon" [class.expanded]="expandedReferenciaId() === ref.id" viewBox="0 0 24 24">
+            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z" />
+          </svg>
         </div>
-
-        @if(expandedReferenciaId() === ref.id) {
-          <div class="item-details">
-            <img [src]="ref.imagemUrl" [alt]="'Capa de ' + ref.titulo" class="book-cover">
-            <div class="details-text">
-              <p><strong>Autor(es):</strong> {{ ref.autor }}</p>
-              <p><strong>Título Completo:</strong> {{ ref.titulo }}</p>
-              <p><strong>Edição:</strong> {{ ref.edicao }}</p>
-              <p><strong>Local:</strong> {{ ref.local }}</p>
-              <p><strong>Editora:</strong> {{ ref.editora }}</p>
-              <p><strong>Ano:</strong> {{ ref.ano }}</p>
-              <p><strong>ISBN:</strong> {{ ref.isbn }}</p>
-              <p><strong>Categoria:</strong> {{ ref.categoria }}</p>
-              @if(ref.url) {
-                <p><strong>Link:</strong> <a [href]="ref.url" target="_blank">{{ ref.url }}</a></p>
-              }
-              <p><strong>Tipo:</strong> {{ ref.tipo }}</p>
-            </div>
-          </div>
-        }
       </div>
+
+      @if(expandedReferenciaId() === ref.id) {
+      <div class="item-details">
+        <div class="details-text">
+          <p><strong>Autor(es):</strong> {{ ref.autor }}</p>
+          <p><strong>Título Completo:</strong> {{ ref.titulo }}</p>
+          <p><strong>Edição:</strong> {{ ref.edicao }}</p>
+          <p><strong>Local:</strong> {{ ref.local }}</p>
+          <p><strong>Editora:</strong> {{ ref.editora }}</p>
+          <p><strong>Ano:</strong> {{ ref.ano }}</p>
+          <p><strong>ISBN:</strong> {{ ref.isbn }}</p>
+          <p><strong>Categoria:</strong> {{ ref.categoria }}</p>
+          @if(ref.url) {
+          <p><strong>Link:</strong> <a [href]="ref.url" target="_blank">{{ ref.url }}</a></p>
+          }
+          <p><strong>Tipo:</strong> {{ ref.tipo }}</p>
+        </div>
+        <div class="details-actions" *ngIf="isAdmin">
+           <button class="btn-action btn-edit" (click)="handleEdit(ref); $event.stopPropagation()">Editar</button>
+           <button class="btn-action btn-delete" (click)="handleDelete(ref.id); $event.stopPropagation()">Excluir</button>
+        </div>
+      </div>
+      }
+    </div>
     }
   </div>
 
-  <footer class="footer-actions">
-    <app-botao-adicionar
-      [textoBotao]="'+ Adicionar Referências'"
-      (clickEvent)="openAddModal()">
+  <footer class="footer-actions" *ngIf="isAdmin">
+    <app-botao-adicionar [textoBotao]="'+ Adicionar Referências'" (clickEvent)="openAddModal()">
     </app-botao-adicionar>
   </footer>
 </div>
 
 @if(isModalVisible()) {
-  <app-pop-up-adicionar-referencia
-    (close)="closeAddModal()"
-    (save)="handleSaveReferencia($event)">
-  </app-pop-up-adicionar-referencia>
+<app-pop-up-adicionar-referencia
+  [referenciaToEdit]="selectedReferencia()"
+  (close)="closeAddModal()"
+  (save)="handleSaveReferencia($event)">
+</app-pop-up-adicionar-referencia>
 }

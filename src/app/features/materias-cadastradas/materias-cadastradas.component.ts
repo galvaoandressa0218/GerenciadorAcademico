@@ -1,10 +1,10 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
 import { Disciplina } from '.././core/model/disciplina.model';
 import { DisciplinaService } from '.././core/services/disciplina.service';
-import { AuthService } from '.././core/services/auth.service'; // Importar o AuthService
+import { AuthService } from '.././core/services/auth.service';
+import { ProgramaService } from '../core/services/programa.service'; // IMPORTAR
 import { BotaoAdicionarComponent } from '../../shared/botao-adicionar/botao-adicionar.component';
 import { PopUpAdicionarMateriaComponent } from '../../shared/pop-up-adicionar-materia/pop-up-adicionar-materia.component';
 
@@ -17,21 +17,23 @@ import { PopUpAdicionarMateriaComponent } from '../../shared/pop-up-adicionar-ma
 })
 export class MateriasCadastradasComponent implements OnInit {
   private disciplinaService = inject(DisciplinaService);
-  private authService = inject(AuthService); // Injetar o AuthService
-  private router = inject(Router);
+  private authService = inject(AuthService); 
+  private programaService = inject(ProgramaService); // INJETAR
 
   public materias = signal<Disciplina[]>([]);
   public isLoading = signal(true);
   public isModalVisible = signal(false);
-  public expandedMateriaId = signal<number | null>(null);
-
-  // Expõe a permissão de admin para o template
+  public selectedMateria = signal<Disciplina | null>(null);
   public isAdmin = this.authService.isAdmin;
 
   ngOnInit(): void {
+    this.loadMaterias();
+  }
+
+  loadMaterias(): void {
     this.disciplinaService.getDisciplinas().subscribe({
       next: (data) => {
-        this.materias.set(data);
+        this.materias.set(data.map(d => ({ ...d, expanded: false })));
         this.isLoading.set(false);
       },
       error: (err) => {
@@ -41,17 +43,23 @@ export class MateriasCadastradasComponent implements OnInit {
     });
   }
 
-  toggleExpand(materiaId: number): void {
-    this.expandedMateriaId.update(currentId => currentId === materiaId ? null : materiaId);
+  toggleExpand(materia: Disciplina): void {
+    materia.expanded = !materia.expanded;
+    if (materia.expanded && !materia.ementa) {
+      this.programaService.getByDisciplinaId(materia.id).subscribe({
+        next: (programa) => {
+          materia.ementa = programa.ementa;
+        },
+        error: () => {
+          materia.ementa = 'Não foi possível carregar a ementa.';
+        }
+      });
+    }
   }
 
   openAddModal(): void {
-    // Apenas admins podem adicionar novas disciplinas
-    if (this.isAdmin) {
-      this.isModalVisible.set(true);
-    } else {
-      alert('Apenas administradores podem adicionar novas disciplinas.');
-    }
+    this.selectedMateria.set(null);
+    this.isModalVisible.set(true);
   }
 
   handleCloseModal(): void {
@@ -59,22 +67,30 @@ export class MateriasCadastradasComponent implements OnInit {
   }
 
   handleSaveNewDiscipline(disciplinaData: Partial<Disciplina>): void {
-    this.disciplinaService.criarDisciplina(disciplinaData).subscribe({
-      next: (disciplinaCriada) => {
-        this.materias.update(current => [...current, disciplinaCriada]);
+    const operation = disciplinaData.id
+      ? this.disciplinaService.atualizarDisciplina(disciplinaData.id, disciplinaData)
+      : this.disciplinaService.criarDisciplina(disciplinaData);
+
+    operation.subscribe({
+      next: () => {
         this.handleCloseModal();
+        this.loadMaterias();
       },
       error: (err) => console.error('Erro ao salvar disciplina:', err)
     });
   }
   
   onEdit(materia: Disciplina): void {
-    console.log('EDITAR matéria:', materia);
-    // TODO: Implementar lógica para abrir um modal de edição
+    this.selectedMateria.set(materia);
+    this.isModalVisible.set(true);
   }
 
   onDelete(materiaId: number): void {
-    console.log('EXCLUIR matéria com ID:', materiaId);
-    // TODO: Implementar lógica para chamar o serviço de exclusão
+    if (confirm('Tem certeza que deseja excluir esta disciplina?')) {
+      this.disciplinaService.deletarDisciplina(materiaId).subscribe({
+        next: () => this.loadMaterias(),
+        error: (err) => console.error('Erro ao excluir disciplina', err)
+      });
+    }
   }
 }

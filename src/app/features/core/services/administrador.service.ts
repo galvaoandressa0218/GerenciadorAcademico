@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environment';
 
-// Interface espelhando os DTOs do backend (AdministradorCreateDTO, UpdateDTO, ResponseDTO)
 export interface Administrador {
   id?: number;
   nome_completo: string;
@@ -15,7 +14,7 @@ export interface Administrador {
 })
 export class AdministradorService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/administradores`;
+  private apiUrl = `${environment.apiUrl}/api/administradores`;
 
   /**
    * Retorna todos os administradores cadastrados

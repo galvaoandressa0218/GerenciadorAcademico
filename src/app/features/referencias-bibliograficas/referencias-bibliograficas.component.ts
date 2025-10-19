@@ -4,6 +4,7 @@ import { BotaoAdicionarComponent } from '../../shared/botao-adicionar/botao-adic
 import { PopUpAdicionarReferenciaComponent } from '../../shared/pop-up-adicionar-referencias/pop-up-adicionar-referencias.component';
 import { Referencia } from '../core/model/referencias.model';
 import { ReferenciaService } from '../core/services/referencias.service';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-referencias-bibliograficas',
@@ -14,12 +15,19 @@ import { ReferenciaService } from '../core/services/referencias.service';
 })
 export class ReferenciasBibliograficasComponent implements OnInit {
   private referenciaService = inject(ReferenciaService);
+  private authService = inject(AuthService);
 
   public referencias = signal<Referencia[]>([]);
   public expandedReferenciaId = signal<number | null>(null);
   public isModalVisible = signal(false);
-  
+  public selectedReferencia = signal<Referencia | null>(null);
+  public isAdmin = this.authService.isAdmin;
+
   ngOnInit(): void {
+    this.loadReferencias();
+  }
+
+  loadReferencias(): void {
     this.referenciaService.getReferencias().subscribe(data => this.referencias.set(data));
   }
 
@@ -27,13 +35,42 @@ export class ReferenciasBibliograficasComponent implements OnInit {
     this.expandedReferenciaId.update(current => (current === id ? null : id));
   }
 
-  openAddModal(): void { this.isModalVisible.set(true); }
-  closeAddModal(): void { this.isModalVisible.set(false); }
+  openAddModal(): void {
+    this.selectedReferencia.set(null);
+    this.isModalVisible.set(true);
+  }
   
+  closeAddModal(): void {
+    this.isModalVisible.set(false);
+  }
+
+  handleEdit(referencia: Referencia): void {
+    this.selectedReferencia.set(referencia);
+    this.isModalVisible.set(true);
+  }
+
   handleSaveReferencia(data: Partial<Referencia>): void {
-    this.referenciaService.addReferencia(data).subscribe(novaRef => {
-      this.referencias.update(lista => [...lista, novaRef]);
-      this.closeAddModal();
+    const operation = data.id
+      ? this.referenciaService.updateReferencia(data.id, data)
+      : this.referenciaService.addReferencia(data);
+
+    operation.subscribe({
+      next: () => {
+        this.closeAddModal();
+        this.loadReferencias();
+      },
+      error: (err) => console.error('Erro ao salvar referência', err)
     });
+  }
+
+  handleDelete(id: number): void {
+    if (confirm('Tem certeza que deseja excluir esta referência?')) {
+      this.referenciaService.deleteReferencia(id).subscribe({
+        next: () => {
+          this.referencias.update(r => r.filter(ref => ref.id !== id));
+        },
+        error: err => console.error('Erro ao excluir referência', err)
+      });
+    }
   }
 }

@@ -1,4 +1,3 @@
-// Versão CORRETA
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -10,14 +9,21 @@ import { Professor } from '../model/professor.model';
 })
 export class ProfessorService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/professores`;
+  private apiUrl = `${environment.apiUrl}/api/professores`;
 
   getProfessores(): Observable<Professor[]> {
     return this.http.get<Professor[]>(this.apiUrl);
   }
 
-  // Verifique se o seu método está EXATAMENTE assim
   criarProfessor(professor: Partial<Professor>): Observable<Professor> {
     return this.http.post<Professor>(this.apiUrl, professor);
+  }
+
+  atualizarProfessor(id: number, professor: Partial<Professor>): Observable<Professor> {
+    return this.http.put<Professor>(`${this.apiUrl}/${id}`, professor);
+  }
+
+  deletarProfessor(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

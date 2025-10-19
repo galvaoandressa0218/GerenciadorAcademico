@@ -1,7 +1,6 @@
-/* Remove margens e define o fundo geral da página, como na imagem */
 :host {
   display: block;
-  background-color: #FFFFFF; /* Cinza bem claro / bege do fundo */
+  background-color: #FFFFFF; 
   min-height: 100vh;
 }
 
@@ -9,10 +8,8 @@
   padding: 24px;
 }
  
-/* Estilo da barra superior marrom escura */
 .header-bar {
-  background-color: #4b3832; /* Tom de marrom mais escuro e sóbrio */
-  color: white;
+  background-color: #4b3832; 
   padding: 16px 24px;
   border-radius: 8px;
   margin-bottom: 24px;
@@ -24,7 +21,6 @@
   margin: 0;
 }
 
-/* Card branco que envolve a tabela */
 .content-table-wrapper {
   background-color: white;
   padding: 24px;
@@ -38,26 +34,23 @@
   font-size: 0.9rem;
 }
 
-/* Estilos do Cabeçalho da Tabela */
 .disciplines-table thead th {
   text-align: left;
   padding: 12px 10px;
-  color: #999; /* Cor cinza para o texto do header */
-  font-weight: 500; /* Peso normal, não negrito */
+  color: #999; 
+  font-weight: 500; 
   border-bottom: 1px solid #eee;
-  text-transform: uppercase; /* Coloca o texto em maiúsculas */
+  text-transform: uppercase; 
   font-size: 0.75rem;
 }
 
-/* Coluna vazia para o ícone de expansão */
 .col-action {
   width: 50px;
 }
 
-/* Estilos das Linhas de Dados */
 .discipline-row {
   cursor: pointer;
-  border-bottom: 1px solid #f5f5f5; /* Linha separadora bem sutil */
+  border-bottom: 1px solid #f5f5f5; 
   transition: background-color 0.2s ease;
 }
 
@@ -76,7 +69,6 @@
   color: #333;
 }
 
-/* Estilos da Seta de Expansão */
 .expand-icon {
   transition: transform 0.3s ease-in-out;
   width: 24px;
@@ -88,9 +80,8 @@
   transform: rotate(180deg);
 }
 
-/* Linha de Descrição Expandida */
 .description-row {
-  background-color: #f9f9f9; /* Fundo levemente acinzentado */
+  background-color: #f9f9f9; 
 }
 
 .description-content {

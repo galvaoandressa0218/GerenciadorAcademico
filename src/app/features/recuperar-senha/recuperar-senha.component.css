@@ -7,15 +7,13 @@
   width: 100%;
   padding: 0;
   box-sizing: border-box;
-  
-  /* Usa a imagem de fundo */
+
   background: url('/assets/background.png') no-repeat center center fixed;
   background-size: cover;
   position: relative;
 }
 
 .card {
-  /* Estilo do cartão centralizado, igual ao login */
   background-color: white;
   padding: 30px;
   border-radius: 16px;
@@ -39,7 +37,6 @@
   line-height: 1.4;
 }
 
-/* Estilo do campo de e-mail */
 .card input[type="email"] {
   width: 100%;
   padding: 15px 12px;
@@ -47,7 +44,7 @@
   border-radius: 4px;
   font-size: 1rem;
   box-sizing: border-box;
-  background-color: #f0f0f0; /* Fundo cinza claro, fiel ao print */
+  background-color: #f0f0f0; 
   color: #555;
   margin-bottom: 25px;
   transition: box-shadow 0.2s;
@@ -55,11 +52,10 @@
 
 .card input[type="email"]:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(245, 124, 0, 0.5); /* Borda laranja no foco */
+  box-shadow: 0 0 0 2px rgba(245, 124, 0, 0.5); 
   background-color: white;
 }
 
-/* Mensagens de feedback */
 .success-message {
   color: #4CAF50;
   background-color: #E8F5E9;
@@ -90,7 +86,6 @@
   color: #f57c00;
 }
 
-/* Faixa escura no topo (para replicar a faixa "recuperação de senha") */
 .header-band {
   position: fixed;
   top: 0;

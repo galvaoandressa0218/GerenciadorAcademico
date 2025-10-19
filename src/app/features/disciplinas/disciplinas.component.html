@@ -1,5 +1,4 @@
 <div class="page-container">
-
   <header class="header-bar">
     <h1>Disciplinas</h1>
   </header>
@@ -13,9 +12,9 @@
           <th class="col-ch">Carga horária</th>
           <th class="col-tipo">Tipo</th>
           <th class="col-class">Classificação</th>
-          <th class="col-action"></th> </tr>
+          <th class="col-action"></th>
+        </tr>
       </thead>
-
       <tbody>
         @for (disc of disciplines(); track disc.id) {
           <tr class="discipline-row" (click)="toggleExpand(disc)">
@@ -32,11 +31,16 @@
               </svg>
             </td>
           </tr>
-
           @if (disc.expanded) {
             <tr class="description-row">
-              <td colspan="6" class="description-content">
-                <p>{{ disc.descricao }}</p>
+              <td colspan="6">
+                <div class="description-content">
+                  <p>{{ disc.descricao }}</p>
+                  <div class="actions-expanded" *ngIf="isAdmin">
+                    <button class="btn-action btn-edit" (click)="handleEdit(disc); $event.stopPropagation()">Editar</button>
+                    <button class="btn-action btn-delete" (click)="handleDelete(disc.id); $event.stopPropagation()">Excluir</button>
+                  </div>
+                </div>
               </td>
             </tr>
           }
@@ -47,9 +51,9 @@
         }
       </tbody>
     </table>
-    </div>
+  </div>
 
-  <footer class="footer-actions">
+  <footer class="footer-actions" *ngIf="isAdmin">
     <app-botao-adicionar
       [textoBotao]="'+ Adicionar Disciplina'"
       (clickEvent)="openModalToAdd()"
@@ -59,7 +63,8 @@
 
 @if (isModalVisible()) {
   <app-pop-up-adicionar-materia
+    [disciplinaToEdit]="selectedDisciplina()"
     (close)="handleCloseModal()"
-    (save)="handleSaveNewDiscipline($event)"
+    (save)="handleSaveDiscipline($event)"
   ></app-pop-up-adicionar-materia>
 }

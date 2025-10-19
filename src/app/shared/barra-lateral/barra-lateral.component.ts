@@ -4,7 +4,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../features/core/services/auth.service';
 
 interface NavItem {
-  icon: string; // Nome do Material Icon
+  icon: string; 
   label: string;
   route: string;
   adminOnly?: boolean;
@@ -26,12 +26,11 @@ export class SidebarComponent {
   
   public isAdmin = this.authService.isAdmin;
 
-  // Itens de navegação com o novo botão adicionado
   public navItems: NavItem[] = [
     { icon: 'home', label: 'Página inicial', route: '/app/cursos' },
     { icon: 'people', label: 'Professores', route: '/app/professores' },
     { icon: 'menu_book', label: 'Disciplinas', route: '/app/disciplinas' },
-    { icon: 'calendar_today', label: 'Cronogramas', route: '/app/materias-cadastradas' },
+    { icon: 'calendar_today', label: 'Cronogramas', route: '/app/cronogramas' },
     { icon: 'grid_view', label: 'Matrizes Curriculares', route: '/app/matriz-curricular' },
     { icon: 'import_contacts', label: 'Referencias bibliograficas', route: '/app/referencias-bibliograficas' }
   ];

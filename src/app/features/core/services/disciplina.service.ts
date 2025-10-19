@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../../../environment';
 import { Disciplina } from '../model/disciplina.model';
 
@@ -9,23 +9,38 @@ import { Disciplina } from '../model/disciplina.model';
 })
 export class DisciplinaService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/disciplinas`;
+  private apiUrl = `${environment.apiUrl}/api/disciplinas`;
 
   getDisciplinas(): Observable<Disciplina[]> {
-    return this.http.get<Disciplina[]>(this.apiUrl);
+    return this.http.get<any[]>(this.apiUrl).pipe(
+      map(disciplinasDoBackend => disciplinasDoBackend.map(d => ({
+        id: d.id,
+        descricao: d.descricao,
+        nome: d.descricao,
+        codigo: d.sigla,
+        sigla: d.sigla,
+        cargaHoraria: d.cargaHoraria,
+        tipo: d.tipo,
+        classificacao: d.classificacao,
+        ativo: d.ativo,
+        expanded: false
+      } as Disciplina)))
+    );
   }
 
   getDisciplinaById(id: number): Observable<Disciplina> {
     return this.http.get<Disciplina>(`${this.apiUrl}/${id}`);
   }
 
-  // --- NOVO MÉTODO ADICIONADO AQUI ---
-  /**
-   * Envia uma nova disciplina para ser criada no backend.
-   * @param disciplina Os dados da nova disciplina do formulário.
-   * @returns A disciplina recém-criada, retornada pelo backend.
-   */
   criarDisciplina(disciplina: Partial<Disciplina>): Observable<Disciplina> {
     return this.http.post<Disciplina>(this.apiUrl, disciplina);
+  }
+
+  atualizarDisciplina(id: number, disciplina: Partial<Disciplina>): Observable<Disciplina> {
+    return this.http.put<Disciplina>(`${this.apiUrl}/${id}`, disciplina);
+  }
+
+  deletarDisciplina(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

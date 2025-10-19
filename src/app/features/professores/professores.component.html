@@ -5,21 +5,59 @@
 
   <div class="content-wrapper">
     <table class="professors-table">
-        </table>
+      <thead>
+        <tr>
+          <th class="col-nome">Nome</th>
+          <th class="col-instituicao">Instituição</th>
+          <th class="col-registro">Registro</th>
+          <th class="col-data">Data de cadastro</th>
+          <th class="col-status">Status</th>
+          <th class="col-actions" *ngIf="isAdmin">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(professor of professors(); track professor.id) {
+        <tr>
+          <td>
+            <div class="name-column">
+              <span class="avatar"
+                style="background-image: url('https://placehold.co/36x36/888/fff?text={{professor.nomeCompleto.charAt(0)}}')"></span>
+              {{ professor.nomeCompleto }}
+            </div>
+          </td>
+          <td>{{ professor.escolaVinculada }}</td>
+          <td>{{ professor.numeroRegistro }}</td>
+          <td>{{ professor.dataCadastro | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <div class="status-column">
+              <span class="status-indicator" [class.active]="professor.ativo"
+                [class.inactive]="!professor.ativo"></span>
+              <span>{{ professor.ativo ? 'Ativo' : 'Inativo' }}</span>
+            </div>
+          </td>
+          <td *ngIf="isAdmin">
+            <button class="btn-action btn-edit" (click)="handleEdit(professor)">Editar</button>
+            <button class="btn-action btn-delete" (click)="handleDelete(professor.id)">Excluir</button>
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td [attr.colspan]="isAdmin ? 6 : 5" style="text-align: center; padding: 20px;">Nenhum professor encontrado.</td>
+        </tr>
+        }
+      </tbody>
+    </table>
   </div>
 
-  <footer class="footer-actions">
-    <app-botao-adicionar
-      [textoBotao]="'+ Adicionar Professor'"
-      [disabled]="!isAdmin"
-      (clickEvent)="openModalToAdd()"
-    ></app-botao-adicionar>
+  <footer class="footer-actions" *ngIf="isAdmin">
+    <app-botao-adicionar [textoBotao]="'+ Adicionar Professor'" (clickEvent)="openModalToAdd()"></app-botao-adicionar>
   </footer>
 </div>
 
 @if (isModalVisible()) {
-  <app-pop-up-adicionar-professor
-    (close)="handleCloseModal()"
-    (save)="handleSaveProfessor($event)"
-  ></app-pop-up-adicionar-professor>
+<app-pop-up-adicionar-professor
+  [professorToEdit]="selectedProfessor()"
+  (close)="handleCloseModal()"
+  (save)="handleSaveProfessor($event)">
+</app-pop-up-adicionar-professor>
 }

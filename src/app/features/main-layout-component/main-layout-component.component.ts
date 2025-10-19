@@ -9,7 +9,7 @@ import { SidebarComponent } from '../../shared/barra-lateral/barra-lateral.compo
   imports: [
     CommonModule,
     RouterOutlet,
-    SidebarComponent // Importa a barra lateral
+    SidebarComponent 
   ],
   templateUrl: './main-layout-component.component.html',
   styleUrls: ['./main-layout-component.component.css']

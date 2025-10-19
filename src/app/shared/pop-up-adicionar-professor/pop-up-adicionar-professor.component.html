@@ -1,28 +1,27 @@
 <div class="modal-backdrop" (click)="onClose()">
   <div class="modal-content" (click)="$event.stopPropagation()">
-    
+    <h2>{{ professorToEdit ? 'Editar Professor' : 'Adicionar Novo Professor' }}</h2>
     <form [formGroup]="professorForm">
       <div class="form-field">
-        <label for="nome_completo">Nome Completo</label>
-        <input id="nome_completo" type="text" formControlName="nome_completo" placeholder="Nome do professor">
+        <label for="nomeCompleto">Nome Completo</label>
+        <input id="nomeCompleto" type="text" formControlName="nomeCompleto" placeholder="Nome do professor">
       </div>
 
       <div class="form-field">
-        <label for="escola_vinculada">Instituição</label>
-        <input id="escola_vinculada" type="text" formControlName="escola_vinculada" placeholder="Ex: UCSAL, UFBA">
+        <label for="escolaVinculada">Instituição</label>
+        <input id="escolaVinculada" type="text" formControlName="escolaVinculada" placeholder="Ex: UCSAL, UFBA">
       </div>
 
       <div class="form-field">
-        <label for="numero_registro">Registro</label>
-        <input id="numero_registro" type="text" formControlName="numero_registro" placeholder="0000000/UF">
+        <label for="numeroRegistro">Registro</label>
+        <input id="numeroRegistro" type="text" formControlName="numeroRegistro" placeholder="0000000/UF">
       </div>
 
       <div class="modal-actions">
         <button type="button" class="save-button" (click)="onSave()" [disabled]="professorForm.invalid">
-          + Adicionar Professor
+          {{ professorToEdit ? 'Salvar Alterações' : '+ Adicionar Professor' }}
         </button>
       </div>
     </form>
-
   </div>
 </div>

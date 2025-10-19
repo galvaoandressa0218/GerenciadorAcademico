@@ -1,16 +1,15 @@
 :host {
   display: block;
-  background-color: #f0f2f5; /* Fundo cinza claro */
+  background-color: #f0f2f5;
   padding: 24px;
 }
 
-/* --- ESTILO DO NOVO CABEÇALHO --- */
 .page-header {
-  background-color: #5d4037; /* Tom de marrom escuro da imagem */
+  background-color: #5d4037;
   color: white;
   padding: 18px 24px;
   margin-bottom: 24px;
-  border-radius: 8px; /* Cantos levemente arredondados, como nos outros componentes */
+  border-radius: 8px;
 }
 
 .page-header h1 {
@@ -18,10 +17,7 @@
   font-weight: 500;
   margin: 0;
 }
-/* --- FIM DO ESTILO DO CABEÇALHO --- */
 
-
-/* Cabeçalho da lista (Nome, curso, etc.) */
 .list-header {
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr 1fr 80px 50px;
@@ -35,10 +31,16 @@
   margin-bottom: 8px;
 }
 
-.status-header { text-align: center; }
-.materias-list { display: flex; flex-direction: column; gap: 8px; }
+.status-header {
+  text-align: center;
+}
 
-/* Barra Laranja Clicável */
+.materias-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .materia-row {
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr 1fr 80px 50px;
@@ -53,15 +55,47 @@
   font-weight: 500;
 }
 
-.materia-row:hover { background-color: #e67e22; }
-.nome-materia { font-weight: 600; }
-.status-cell { display: flex; justify-content: center; align-items: center; }
-.status-dot { width: 14px; height: 14px; border-radius: 50%; background-color: #e74c3c; }
-.status-dot.active { background-color: #2ecc71; }
+.materia-row:hover {
+  background-color: #e67e22;
+}
 
-.arrow-cell { display: flex; justify-content: center; align-items: center; }
-.arrow-icon { width: 24px; height: 24px; fill: white; transition: transform 0.3s ease-in-out; }
-.arrow-icon.expanded { transform: rotate(90deg); }
+.nome-materia {
+  font-weight: 600;
+}
+
+.status-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #e74c3c;
+}
+
+.status-dot.active {
+  background-color: #2ecc71;
+}
+
+.arrow-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow-icon {
+  width: 24px;
+  height: 24px;
+  fill: white;
+  transition: transform 0.3s ease-in-out;
+}
+
+.arrow-icon.expanded {
+  transform: rotate(90deg);
+}
 
 /* Área de Detalhes Expansível */
 .materia-details {
@@ -76,18 +110,72 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.detail-section { margin-bottom: 24px; }
-.detail-header { display: flex; justify-content: space-between; align-items: center; background-color: #f58220; color: white; padding: 8px 12px; border-radius: 4px; font-weight: bold; margin-bottom: 12px; }
-.icon-settings { cursor: pointer; font-family: "Font Awesome 5 Free"; }
-.detail-content { padding-left: 12px; color: #555; font-size: 0.9rem; line-height: 1.6; }
+.detail-section {
+  margin-bottom: 24px;
+}
 
-.details-actions { display: flex; gap: 12px; margin-top: 24px; border-top: 1px solid #eee; padding-top: 24px; }
-.details-actions button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: white; }
-.btn-edit { background-color: #3498db; }
-.btn-delete { background-color: #e74c3c; }
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f58220;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
 
-.footer-actions { display: flex; justify-content: flex-end; margin-top: 24px; }
+.icon-settings {
+  cursor: pointer;
+  font-family: "Font Awesome 5 Free";
+}
+
+.detail-content {
+  padding-left: 12px;
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.details-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  border-top: 1px solid #eee;
+  padding-top: 24px;
+}
+
+.details-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+}
+
+.btn-edit {
+  background-color: #3498db;
+}
+
+.btn-delete {
+  background-color: #e74c3c;
+}
+
+.footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
