@@ -28,7 +28,7 @@ export class SidebarComponent {
 
   // Itens de navegação com o novo botão adicionado
   public navItems: NavItem[] = [
-    { icon: 'home', label: 'Página inicial', route: '/app/materias' },
+    { icon: 'home', label: 'Página inicial', route: '/app/cursos' },
     { icon: 'people', label: 'Professores', route: '/app/professores' },
     { icon: 'menu_book', label: 'Disciplinas', route: '/app/disciplinas' },
     { icon: 'calendar_today', label: 'Cronogramas', route: '/app/materias-cadastradas' },

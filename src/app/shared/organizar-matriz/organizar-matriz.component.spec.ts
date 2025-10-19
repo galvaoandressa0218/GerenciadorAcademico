@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PopUpTriploComponent } from './pop-up-triplo.component';
+import { OrganizarMatrizComponent } from './organizar-matriz.component';
 
-describe('PopUpTriploComponent', () => {
-  let component: PopUpTriploComponent;
-  let fixture: ComponentFixture<PopUpTriploComponent>;
+describe('OrganizarMatrizComponent', () => {
+  let component: OrganizarMatrizComponent;
+  let fixture: ComponentFixture<OrganizarMatrizComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PopUpTriploComponent]
+      imports: [OrganizarMatrizComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(PopUpTriploComponent);
+    fixture = TestBed.createComponent(OrganizarMatrizComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

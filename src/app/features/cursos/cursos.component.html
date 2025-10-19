@@ -1,0 +1,40 @@
+<div class="page-container">
+  <h1 class="page-title">Cursos Cadastrados</h1>
+
+  <div class="list-container">
+    <div class="list-header">
+      <span>Nome</span>
+      <span>Turno</span>
+      <span>Campus</span>
+      <span>Habilitação</span>
+      <span>CH</span>
+    </div>
+
+    <div class="list-body">
+      @for(curso of cursos(); track curso.id) {
+        <div class="curso-row" (click)="navigateTo(curso)">
+          <span>{{ curso.nome }}</span>
+          <span>{{ curso.turno }}</span>
+          <span>{{ curso.campus }}</span>
+          <span>{{ curso.habilitacao }}</span>
+          <span>{{ curso.ch }}</span>
+          <div class="arrow-cell">></div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <footer class="footer-actions">
+    <app-botao-adicionar
+      [textoBotao]="'Adicionar curso'"
+      (clickEvent)="openAddModal()">
+    </app-botao-adicionar>
+  </footer>
+</div>
+
+@if(isModalVisible()) {
+  <app-pop-up-adicionar-curso
+    (close)="closeAddModal()"
+    (save)="handleSaveCurso($event)">
+  </app-pop-up-adicionar-curso>
+}

@@ -1,0 +1,28 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <form [formGroup]="form" class="form-layout">
+      <div class="form-row">
+        <div class="form-field"><label>Título</label><input formControlName="titulo"></div>
+        <div class="form-field"><label>Autor</label><input formControlName="autor"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Edição</label><input formControlName="edicao"></div>
+        <div class="form-field"><label>Editora</label><input formControlName="editora"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>ISBN</label><input formControlName="isbn"></div>
+        <div class="form-field"><label>Tipo</label><input formControlName="tipo"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Categoria</label><input formControlName="categoria"></div>
+        <div class="form-field"><label>Local</label><input formControlName="local"></div>
+      </div>
+      <div class="form-field full-width">
+        <label>Url (Opcional)</label><input formControlName="url">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="save-button" (click)="onSave()">+ Adicionar Referencia</button>
+      </div>
+    </form>
+  </div>
+</div>

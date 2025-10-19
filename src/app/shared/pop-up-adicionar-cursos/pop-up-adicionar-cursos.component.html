@@ -1,0 +1,10 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Adicionar Novo Curso</h2>
+    <form [formGroup]="cursoForm">
+      <div class="modal-actions">
+        <button type="button" class="save-button" (click)="onSave()" [disabled]="cursoForm.invalid">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>

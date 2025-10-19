@@ -1,0 +1,21 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <form [formGroup]="form">
+      <div class="form-field">
+        <label for="disciplina">Disciplina *</label>
+        <input id="disciplina" type="text" formControlName="disciplina" placeholder="Área de digitação">
+      </div>
+      <div class="form-field">
+        <label for="semestre">Semestre associado / Eletivas *</label>
+        <input id="semestre" type="text" formControlName="semestre" placeholder="Área de digitação">
+      </div>
+      <div class="form-field">
+        <label for="preRequisito">pré-requisito de outra matéria</label>
+        <input id="preRequisito" type="text" formControlName="preRequisito" placeholder="Área de digitação">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="save-button" (click)="onSave()" [disabled]="form.invalid">Finalizar</button>
+      </div>
+    </form>
+  </div>
+</div>

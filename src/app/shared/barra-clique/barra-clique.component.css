@@ -82,3 +82,19 @@
   word-break: break-all;
 }
 
+.barra-generica {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.barra-generica .icone-seta {
+  width: 24px;
+  height: 24px;
+  fill: white;
+  transition: transform 0.3s ease;
+}
+
+.barra-generica .icone-seta.aberta {
+  transform: rotate(180deg);
+}

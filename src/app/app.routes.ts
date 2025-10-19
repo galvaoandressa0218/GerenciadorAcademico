@@ -6,6 +6,7 @@ import { RecuperarSenhaComponent } from './features/recuperar-senha/recuperar-se
 
 // LAYOUT PRINCIPAL (ROTAS PROTEGIDAS)
 import { MainLayoutComponent } from './features/main-layout-component/main-layout-component.component';
+import { CursosComponent } from './features/cursos/cursos.component';
 
 export const routes: Routes = [
 
@@ -19,21 +20,19 @@ export const routes: Routes = [
     path: 'app',
     component: MainLayoutComponent,
     children: [
-      // Rota padrão redireciona para matérias cadastradas
-      { path: '', redirectTo: 'materias-cadastradas', pathMatch: 'full' },
+      // Rota padrão redireciona para cursos
+     { path: '', redirectTo: 'cursos', pathMatch: 'full' },
 
-      // Rota para Matérias Cadastradas
+      { path: 'cursos', component: CursosComponent },
       { 
         path: 'materias-cadastradas', 
         loadComponent: () => import('./features/materias-cadastradas/materias-cadastradas.component')
                               .then(m => m.MateriasCadastradasComponent)
       },
-
-      // Professores
       { 
         path: 'professores', 
         loadComponent: () => import('./features/professores/professores.component')
-                              .then(m => m.ProfessoresComponent)
+                             .then(m => m.ProfessoresComponent)
       },
 
       // Disciplinas
@@ -73,7 +72,7 @@ export const routes: Routes = [
       { path: '**', redirectTo: 'materias-cadastradas' }
     ]
   },
-
+      { path: 'cursos', loadComponent: () => import('./features/cursos/cursos.component').then(m => m.CursosComponent) },
   // 3. Rota Coringa Global
   { path: '**', redirectTo: 'login' }
 ];

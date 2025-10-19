@@ -10,5 +10,5 @@ export interface Referencia {
   editora: string;
   ano: number;
   isbn: string;
-  url?: string; 
+  url?: string;
 }
