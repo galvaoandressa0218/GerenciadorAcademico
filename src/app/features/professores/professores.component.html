@@ -10,7 +10,6 @@
           <th class="col-nome">Nome</th>
           <th class="col-instituicao">Instituição</th>
           <th class="col-registro">Registro</th>
-          <th class="col-data">Data de cadastro</th>
           <th class="col-status">Status</th>
         </tr>
       </thead>
@@ -18,16 +17,18 @@
         <tr *ngFor="let professor of professors()">
           <td>
             <div class="name-column">
-              <span class="material-icons-outlined icon-placeholder">person</span> 
-              {{ professor.nome }}
+              <span class="material-icons-outlined icon-placeholder">person</span>
+              {{ professor.nome_completo }}
             </div>
           </td>
-          <td>{{ professor.instituicao }}</td>
-          <td>{{ professor.registro }}</td>
-          <td>{{ professor.dataCadastro }}</td>
+          <td>{{ professor.escola_vinculada }}</td>
+          <td>{{ professor.numero_registro }}</td>
           <td>
-            <div class="status-display">
+            <div class="status-display" *ngIf="professor.ativo">
               <span class="status-active"></span> Ativo
+            </div>
+            <div class="status-display" *ngIf="!professor.ativo">
+              <span></span> Inativo
             </div>
           </td>
         </tr>
@@ -36,7 +37,6 @@
   </div>
 
   <footer class="footer-actions">
-    <!-- ✅ BOTÃO ADICIONAR (Restrito ao Admin) -->
     <app-botao-adicionar
       *ngIf="isAdmin"
       [textoBotao]="'+ Adicionar Professor'"

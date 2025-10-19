@@ -1,9 +1,8 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../features/core/services/auth.service';
+import { AuthService } from '.././core/services/auth.service';
 import { BotaoAdicionarComponent } from '../../shared/botao-adicionar/botao-adicionar.component';
-import { Professor } from '../../features/core/model/professor.model';
-import { ProfessorService } from '../../features/core/services/professor.service'; // Importar o novo service
+import { Professor } from '.././core/model/professor.model'; // Importar o modelo
 
 @Component({
   selector: 'app-professores',
@@ -15,37 +14,25 @@ import { ProfessorService } from '../../features/core/services/professor.service
   templateUrl: './professores.component.html',
   styleUrls: ['./professores.component.css']
 })
-export class ProfessoresComponent implements OnInit {
-  // Injeção de dependências
+export class ProfessoresComponent {
   private authService = inject(AuthService);
-  private professorService = inject(ProfessorService);
-
   public isAdmin = this.authService.isAdmin;
-  public professors = signal<Professor[]>([]); // Inicializa como um array vazio
 
-  ngOnInit(): void {
-    this.carregarProfessores();
-  }
+  // Usar o modelo 'Professor' e remover os dados mock
+  // Este sinal deve ser preenchido por uma chamada de serviço (ex: ProfessorService)
+  public professors = signal<Professor[]>([]); 
 
-  carregarProfessores(): void {
-    this.professorService.getProfessores().subscribe({
-      next: (data) => {
-        // Mapeia a data para incluir a data de cadastro formatada, se necessário
-        const professoresComData = data.map(p => ({
-          ...p,
-          dataCadastro: '00/00/00' // O backend não fornece, então usamos um placeholder
-        }));
-        this.professors.set(professoresComData);
-      },
-      error: (err) => {
-        console.error('Erro ao carregar professores:', err);
-        // Tratar o erro, talvez exibindo uma mensagem na tela
-      }
-    });
+  // TODO: Injetar um 'ProfessorService' e buscar os dados no ngOnInit
+
+  constructor() {
+    // Exemplo de como você preencheria com dados (substitua por chamada de API)
+    this.professors.set([
+        { id: 1, nome_completo: 'Glaucya Carreira Boechat', escola_vinculada: 'UCSAL', numero_registro: 12345, ativo: true },
+        { id: 2, nome_completo: 'João da Silva', escola_vinculada: 'UNEB', numero_registro: 67890, ativo: true }
+    ]);
   }
 
   handleAddProfessor(): void {
     console.log('Abrindo modal de adição de professor...');
-    // Aqui virá a lógica para abrir um formulário/modal
   }
 }

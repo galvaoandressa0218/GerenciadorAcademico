@@ -1,67 +1,25 @@
-<div class="disciplina-container">
-  <header class="page-header">
-    <h1>{{ disciplina.nome }} ({{ disciplina.codigo }})</h1>
-  </header>
+@if (disciplina) {
+  <div class="disciplina-container">
+    <header class="page-header">
+      <h1>{{ disciplina.nome }} ({{ disciplina.codigo }})</h1>
+    </header>
 
-  <div class="secao">
-    <div class="secao-header">
-      <h2>Ementa</h2>
-      <i class="fas fa-cog edit-icon" (click)="abrirModal('ementa')" title="Editar Ementa"></i>
+    <div class="secao">
+      <div class="secao-header">
+        <h2>Ementa</h2>
+        <i class="fas fa-cog edit-icon" (click)="abrirModal('ementa')" title="Editar Ementa"></i>
+      </div>
+      <div class="secao-body">
+        <p>{{ disciplina.ementa }}</p>
+      </div>
     </div>
-    <div class="secao-body">
-      <p>{{ disciplina.ementa }}</p>
-    </div>
-  </div>
 
-  <div class="secao">
-    <div class="secao-header">
-      <h2>Objetivos</h2>
-      <i class="fas fa-cog edit-icon" (click)="abrirModal('objetivos')" title="Editar Objetivos"></i>
     </div>
-    <div class="secao-body">
-      <ul>
-        <li *ngFor="let objetivo of disciplina.objetivos">{{ objetivo }}</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="secao">
-    <div class="secao-header">
-      <h2>Conteúdo programático</h2>
-      <i class="fas fa-cog edit-icon" (click)="abrirModal('conteudo')" title="Editar Conteúdo"></i>
-    </div>
-    <div class="secao-body">
-      <ul>
-        <li *ngFor="let item of disciplina.conteudo">{{ item }}</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="secao">
-    <div class="secao-header">
-      <h2>Metodologia</h2>
-      <i class="fas fa-cog edit-icon" (click)="abrirModal('metodologia')" title="Editar Metodologia"></i>
-    </div>
-    <div class="secao-body">
-      <ul>
-        <li *ngFor="let item of disciplina.metodologia">{{ item }}</li>
-      </ul>
-    </div>
-  </div>
-  
-  <div class="secao">
-    <div class="secao-header">
-      <h2>Sistema de Avaliação</h2>
-      <i class="fas fa-cog edit-icon" (click)="abrirModal('avaliacao')" title="Editar Avaliação"></i>
-    </div>
-    <div class="secao-body">
-      <ul>
-        <li *ngFor="let item of disciplina.avaliacao">{{ item }}</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="actions">
-    <button class="btn-adicionar" (click)="adicionarPrograma()">Adicionar programa</button>
-  </div>
-</div>
+} @else {
+  @if(isLoading()) {
+    <p>Carregando detalhes da disciplina...</p>
+  }
+  @if(error()) {
+    <p style="color: red;">{{ error() }}</p>
+  }
+}

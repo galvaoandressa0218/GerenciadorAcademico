@@ -1,8 +1,7 @@
 export interface Professor {
   id: number;
-  nomeCompleto: string;
-  numeroRegistro: number;
-  escolaVinculada: string;
+  nome_completo: string;
+  numero_registro: number;
+  escola_vinculada: string;
   ativo: boolean;
-  dataCadastro?: string; // Exemplo
 }

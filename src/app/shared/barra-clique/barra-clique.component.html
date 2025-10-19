@@ -1,45 +1,40 @@
-<!-- Renderiza a barra para o tipo 'Materia' -->
 <ng-container *ngIf="materia">
   <div class="barra-resumo barra-materia" (click)="onBarClick()">
-    <span>{{ materia?.nome }}</span>
-    <span>{{ materia?.curso }}</span>
-    <span>{{ materia?.cargaHoraria }}h</span>
-    <span>{{ materia?.tipo }}</span>
-    <span>{{ materia?.classificacao }}</span>
+    <span>{{ materia.nome }}</span>
+    <span>{{ materia.curso }}</span>
+    <span>{{ materia.cargaHoraria }}h</span>
+    <span>{{ materia.tipo }}</span>
+    <span>{{ materia.classificacao }}</span>
   </div>
 </ng-container>
 
-<!-- Renderiza a barra/acordeão para o tipo 'Referencia' -->
 <ng-container *ngIf="referencia">
   <div class="barra-wrapper" [class.aberta]="estaAberta">
-    <!-- BARRA DE RESUMO (Sempre visível) -->
     <div class="barra-resumo barra-referencia" (click)="onBarClick()">
-      <span>{{ referencia?.tituloLivro }}</span>
-      <span>{{ referencia?.autor }}</span>
-      <span>{{ referencia?.tipo }}</span>
-      <span>{{ referencia?.edicao }}</span>
-      <span>{{ referencia?.categoria }}</span>
+      <span>{{ referencia.tituloLivro }}</span>
+      <span>{{ referencia.autor }}</span>
+      <span>{{ referencia.tipo }}</span>
+      <span>{{ referencia.edicao }}</span>
+      <span>{{ referencia.categoria }}</span>
       <span class="icone-seta">{{ estaAberta ? '▲' : '▼' }}</span>
     </div>
-  
-    <!-- CONTEÚDO DE DETALHES (Visível apenas quando 'estaAberta' for true) -->
+
     <div *ngIf="estaAberta" class="barra-detalhes">
       <div class="detalhes-imagem">
-        <img [src]="referencia?.imagemUrl" [alt]="'Capa do livro ' + referencia?.tituloLivro">
+        <img [src]="referencia.imagemUrl" [alt]="'Capa do livro ' + referencia.tituloLivro">
       </div>
       <div class="detalhes-info">
-        <p><strong>Autor(es):</strong> {{ referencia?.autor }}</p>
-        <p><strong>Título:</strong> {{ referencia?.tituloLivro }}</p>
-        <p><strong>Edição:</strong> {{ referencia?.edicao }}</p>
-        <p><strong>Ano:</strong> {{ referencia?.ano }}</p>
-        <p><strong>ISBN:</strong> {{ referencia?.isbn }}</p>
-        <p><strong>Tipo:</strong> {{ referencia?.tipo }}</p>
+        <p><strong>Autor(es):</strong> {{ referencia.autor }}</p>
+        <p><strong>Título:</strong> {{ referencia.tituloLivro }}</p>
+        <p><strong>Edição:</strong> {{ referencia.edicao }}</p>
+        <p><strong>Ano:</strong> {{ referencia.ano }}</p>
+        <p><strong>ISBN:</strong> {{ referencia.isbn }}</p>
+        <p><strong>Tipo:</strong> {{ referencia.tipo }}</p>
       </div>
       <div class="detalhes-links">
-        <p><strong>Categoria:</strong> {{ referencia?.categoria }}</p>
-        <p *ngIf="referencia?.link"><strong>Url:</strong> <a [href]="referencia?.link" target="_blank">{{ referencia?.link }}</a></p>
+        <p><strong>Categoria:</strong> {{ referencia.categoria }}</p>
+        <p *ngIf="referencia.link"><strong>Url:</strong> <a [href]="referencia.link" target="_blank">{{ referencia.link }}</a></p>
       </div>
     </div>
   </div>
 </ng-container>
-

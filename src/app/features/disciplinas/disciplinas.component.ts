@@ -1,69 +1,67 @@
-// CAMINHO: src/app/features/disciplinas/disciplinas.component.ts
-// ARQUIVO COMPLETO PARA VERIFICAÇÃO
-
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BotaoAdicionarComponent } from '../../shared/botao-adicionar/botao-adicionar.component';
-import { PopUpComponent } from '../../shared/pop-up-forms/pop-up-forms.component';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DisciplinaService } from '../../features/core/services/disciplina.service';
-import { DisciplinaTabela } from '../../features/core/model/materia.model';
+import { PopUpComponent } from '../../shared/pop-up-forms/pop-up-forms.component'; // Importar o pop-up
+import { Disciplina } from '.././core/model/disciplina.model';
+import { DisciplinaService } from '.././core/services/disciplina.service';
 
 @Component({
   selector: 'app-disciplinas',
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     BotaoAdicionarComponent,
-    PopUpComponent,
-    ReactiveFormsModule
+    PopUpComponent, // Adicionar o pop-up aos imports
+    ReactiveFormsModule // Adicionar o módulo de formulários reativos
   ],
   templateUrl: './disciplinas.component.html',
   styleUrls: ['./disciplinas.component.css']
 })
 export class DisciplinasComponent implements OnInit {
   private disciplinaService = inject(DisciplinaService);
-  private fb = inject(FormBuilder);
+  private fb = inject(FormBuilder); // Injetar o FormBuilder
 
-  public disciplines = signal<DisciplinaTabela[]>([]);
+  public disciplines = signal<Disciplina[]>([]);
+  public isLoading = signal(true);
+  
+  // Lógica do Modal e Formulário
   public isModalVisible = signal(false);
   public disciplinaForm: FormGroup;
-
-  tiposDisciplina = ['EAD', 'PRESENCIAL'];
-  classificacoesDisciplina = ['TEORICA', 'PRATICA', 'ESTAGIO'];
+  public tiposDisciplina = ['EAD', 'PRESENCIAL'];
+  public classificacoesDisciplina = ['TEORICA', 'PRATICA', 'ESTAGIO'];
 
   constructor() {
+    // Inicializar o formulário
     this.disciplinaForm = this.fb.group({
-      sigla: ['', Validators.required],
-      descricao: ['', Validators.required],
-      carga_horaria: [null, [Validators.required, Validators.min(1)]],
-      tipo: ['PRESENCIAL', Validators.required],
-      classificacao: ['TEORICA', Validators.required]
+      nome: ['', Validators.required],
+      codigo: ['', Validators.required],
+      cargaHoraria: [null, [Validators.required, Validators.min(1)]],
+      tipo: [this.tiposDisciplina[0], Validators.required],
+      classificacao: [this.classificacoesDisciplina[0], Validators.required],
+      descricao: ['']
     });
   }
 
   ngOnInit(): void {
-    this.carregarDisciplinas();
-  }
-
-  carregarDisciplinas(): void {
-    // PASSO 1: Esta é a linha onde o erro provavelmente está.
-    // Verifique se a chamada abaixo é exatamente "this.disciplinaService.getDisciplinasParaTabela()"
-    this.disciplinaService.getDisciplinasParaTabela().subscribe({
-      next: (data) => {
-        const disciplinasParaTabela: DisciplinaTabela[] = data.map(d => ({ ...d, expanded: false }));
-        this.disciplines.set(disciplinasParaTabela);
+    this.disciplinaService.getDisciplinas().subscribe({
+      next: (data: Disciplina[]) => {
+        this.disciplines.set(data.map(d => ({ ...d, expanded: false })));
+        this.isLoading.set(false);
       },
-      error: (err) => console.error('Erro ao carregar disciplinas:', err)
+      error: (err: any) => {
+        console.error('Erro ao carregar disciplinas:', err);
+        this.isLoading.set(false);
+      }
     });
   }
 
-  toggleExpand(disciplina: DisciplinaTabela): void {
-    disciplina.expanded = !disciplina.expanded;
-  }
-
-  handleAddDiscipline(): void {
-    this.disciplinaForm.reset({ tipo: 'PRESENCIAL', classificacao: 'TEORICA' });
+  // Métodos para controlar o modal
+  openModalToAdd(): void {
+    this.disciplinaForm.reset({
+        tipo: this.tiposDisciplina[0],
+        classificacao: this.classificacoesDisciplina[0]
+    });
     this.isModalVisible.set(true);
   }
 
@@ -72,16 +70,17 @@ export class DisciplinasComponent implements OnInit {
   }
 
   handleSaveDiscipline(): void {
-    if (this.disciplinaForm.invalid) {
-      console.error('Formulário inválido!');
-      return;
+    if (this.disciplinaForm.valid) {
+      console.log('Salvando disciplina:', this.disciplinaForm.value);
+      // Aqui você chamaria o serviço para criar a disciplina
+      // this.disciplinaService.criarDisciplina(this.disciplinaForm.value).subscribe(...)
+      this.handleCloseModal();
+    } else {
+      console.error('Formulário inválido');
     }
-    this.disciplinaService.criarDisciplina(this.disciplinaForm.value).subscribe({
-      next: () => {
-        this.handleCloseModal();
-        this.carregarDisciplinas();
-      },
-      error: (err:any) => console.error('Erro ao salvar disciplina:', err)
-    });
+  }
+
+  toggleExpand(discipline: Disciplina): void {
+    discipline.expanded = !discipline.expanded;
   }
 }
