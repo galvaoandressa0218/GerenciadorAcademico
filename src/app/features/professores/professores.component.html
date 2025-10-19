@@ -1,47 +1,25 @@
 <div class="page-container">
-  <div class="header-bar">
-    <h1>Adicionar professor</h1>
-  </div>
+  <header class="header-bar">
+    <h1>Professores</h1>
+  </header>
 
-  <div class="content-table-wrapper">
+  <div class="content-wrapper">
     <table class="professors-table">
-      <thead>
-        <tr>
-          <th class="col-nome">Nome</th>
-          <th class="col-instituicao">Instituição</th>
-          <th class="col-registro">Registro</th>
-          <th class="col-status">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let professor of professors()">
-          <td>
-            <div class="name-column">
-              <span class="material-icons-outlined icon-placeholder">person</span>
-              {{ professor.nome_completo }}
-            </div>
-          </td>
-          <td>{{ professor.escola_vinculada }}</td>
-          <td>{{ professor.numero_registro }}</td>
-          <td>
-            <div class="status-display" *ngIf="professor.ativo">
-              <span class="status-active"></span> Ativo
-            </div>
-            <div class="status-display" *ngIf="!professor.ativo">
-              <span></span> Inativo
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        </table>
   </div>
 
   <footer class="footer-actions">
     <app-botao-adicionar
-      *ngIf="isAdmin"
       [textoBotao]="'+ Adicionar Professor'"
-      (clickEvent)="handleAddProfessor()"
+      [disabled]="!isAdmin"
+      (clickEvent)="openModalToAdd()"
     ></app-botao-adicionar>
   </footer>
-
 </div>
+
+@if (isModalVisible()) {
+  <app-pop-up-adicionar-professor
+    (close)="handleCloseModal()"
+    (save)="handleSaveProfessor($event)"
+  ></app-pop-up-adicionar-professor>
+}
