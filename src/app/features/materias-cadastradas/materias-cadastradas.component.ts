@@ -1,40 +1,80 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common'; // Importe se não estiver standalone
-import { MateriaService } from '../../features/core/services/materia.service'; // Importe o novo service
-import { Materia } from '../core/model/materia.model';
+import { CommonModule } from '@angular/common';
+
+import { Disciplina } from '.././core/model/disciplina.model';
+import { DisciplinaService } from '.././core/services/disciplina.service';
+import { AuthService } from '.././core/services/auth.service'; // Importar o AuthService
+import { BotaoAdicionarComponent } from '../../shared/botao-adicionar/botao-adicionar.component';
+import { PopUpAdicionarMateriaComponent } from '../../shared/pop-up-adicionar-materia/pop-up-adicionar-materia.component';
+
 @Component({
   selector: 'app-materias-cadastradas',
   standalone: true,
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule, BotaoAdicionarComponent, PopUpAdicionarMateriaComponent],
   templateUrl: './materias-cadastradas.component.html',
   styleUrls: ['./materias-cadastradas.component.css']
 })
 export class MateriasCadastradasComponent implements OnInit {
+  private disciplinaService = inject(DisciplinaService);
+  private authService = inject(AuthService); // Injetar o AuthService
+  private router = inject(Router);
 
-  materiasCadastradas: Materia[] = []; // Tipado com a nova interface
-  isLoading: boolean = true; // Variável para controle de loading
+  public materias = signal<Disciplina[]>([]);
+  public isLoading = signal(true);
+  public isModalVisible = signal(false);
+  public expandedMateriaId = signal<number | null>(null);
 
-  private router = inject(Router);  
-  private materiaService = inject(MateriaService); // Injeta o novo service
+  // Expõe a permissão de admin para o template
+  public isAdmin = this.authService.isAdmin;
 
   ngOnInit(): void {
-    // Chamada da API para preencher materiasCadastradas
-    this.materiaService.getMaterias().subscribe({
+    this.disciplinaService.getDisciplinas().subscribe({
       next: (data) => {
-        this.materiasCadastradas = data;
-        this.isLoading = false;
+        this.materias.set(data);
+        this.isLoading.set(false);
       },
       error: (err) => {
-        console.error('Erro ao buscar matérias cadastradas:', err);
-        this.isLoading = false;
+        console.error("Erro ao buscar matérias cadastradas:", err);
+        this.isLoading.set(false);
       }
     });
   }
 
-  navigateToMateria(id: number | string) {
-    this.router.navigate(['/app/materia', id]);
+  toggleExpand(materiaId: number): void {
+    this.expandedMateriaId.update(currentId => currentId === materiaId ? null : materiaId);
+  }
+
+  openAddModal(): void {
+    // Apenas admins podem adicionar novas disciplinas
+    if (this.isAdmin) {
+      this.isModalVisible.set(true);
+    } else {
+      alert('Apenas administradores podem adicionar novas disciplinas.');
+    }
+  }
+
+  handleCloseModal(): void {
+    this.isModalVisible.set(false);
+  }
+
+  handleSaveNewDiscipline(disciplinaData: Partial<Disciplina>): void {
+    this.disciplinaService.criarDisciplina(disciplinaData).subscribe({
+      next: (disciplinaCriada) => {
+        this.materias.update(current => [...current, disciplinaCriada]);
+        this.handleCloseModal();
+      },
+      error: (err) => console.error('Erro ao salvar disciplina:', err)
+    });
+  }
+  
+  onEdit(materia: Disciplina): void {
+    console.log('EDITAR matéria:', materia);
+    // TODO: Implementar lógica para abrir um modal de edição
+  }
+
+  onDelete(materiaId: number): void {
+    console.log('EXCLUIR matéria com ID:', materiaId);
+    // TODO: Implementar lógica para chamar o serviço de exclusão
   }
 }
