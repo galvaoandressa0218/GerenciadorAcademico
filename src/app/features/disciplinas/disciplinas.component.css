@@ -1,51 +1,64 @@
-.page-container {
-  padding: 0;
-  background-color: #f0f0f0;
-  min-height: calc(100vh - 40px);
+/* Remove margens e define o fundo geral da página, como na imagem */
+:host {
+  display: block;
+  background-color: #FFFFFF; /* Cinza bem claro / bege do fundo */
+  min-height: 100vh;
 }
 
+.page-container {
+  padding: 24px;
+}
+ 
+/* Estilo da barra superior marrom escura */
 .header-bar {
-  background-color: #5d4037;
+  background-color: #743a28; /* Tom de marrom mais escuro e sóbrio */
   color: white;
-  padding: 15px 20px;
-  margin-bottom: 20px;
-  display: block;
+  padding: 16px 24px;
+  border-radius: 8px;
+  margin-bottom: 24px;
 }
 
 .header-bar h1 {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 500;
   margin: 0;
 }
 
+/* Card branco que envolve a tabela */
 .content-table-wrapper {
   background-color: white;
-  padding: 15px 20px 20px 20px;
+  padding: 24px;
   border-radius: 8px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .disciplines-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 /* Estilos do Cabeçalho da Tabela */
 .disciplines-table thead th {
   text-align: left;
-  padding: 15px 10px 5px 10px;
-  background-color: white;
-  color: #333;
-  font-weight: 500;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 12px 10px;
+  color: #999; /* Cor cinza para o texto do header */
+  font-weight: 500; /* Peso normal, não negrito */
+  border-bottom: 1px solid #eee;
+  text-transform: uppercase; /* Coloca o texto em maiúsculas */
+  font-size: 0.75rem;
 }
 
-/* Estilos das Linhas de Dados e Expansão */
+/* Coluna vazia para o ícone de expansão */
+.col-action {
+  width: 50px;
+}
+
+/* Estilos das Linhas de Dados */
 .discipline-row {
   cursor: pointer;
-  border-bottom: 1px solid #eee;
-  transition: background-color 0.15s;
+  border-bottom: 1px solid #f5f5f5; /* Linha separadora bem sutil */
+  transition: background-color 0.2s ease;
 }
 
 .discipline-row:hover {
@@ -53,35 +66,22 @@
 }
 
 .discipline-row td {
-  padding: 15px 10px;
+  padding: 16px 10px;
   color: #555;
-}
-
-.nome-expand {
-  display: flex;
-  flex-direction: column;
+  vertical-align: middle;
 }
 
 .nome-principal {
   font-weight: 500;
   color: #333;
-  margin-bottom: 5px;
 }
 
-.desc-toggle {
-  font-size: 0.8rem;
-  color: #777;
-}
-
-.classificacao {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
+/* Estilos da Seta de Expansão */
 .expand-icon {
-  margin-left: 10px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease-in-out;
+  width: 24px;
+  height: 24px;
+  fill: #888;
 }
 
 .expand-icon.rotated {
@@ -90,47 +90,27 @@
 
 /* Linha de Descrição Expandida */
 .description-row {
-  background-color: #f7f7f7;
+  background-color: #f9f9f9; /* Fundo levemente acinzentado */
 }
 
 .description-content {
-  padding: 10px 20px;
-  line-height: 1.4;
-  color: #444;
-  font-size: 0.9rem;
+  padding: 20px 25px;
+  line-height: 1.6;
+  color: #666;
+  font-size: 0.85rem;
 }
 
 .description-content p {
   margin: 0;
 }
 
+
 .footer-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 0;
+  padding: 24px 0 0 0; 
 }
 
 app-botao-adicionar {
-  width: 220px;
+  width: auto;
 }
-.form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .form-group label {
-    font-weight: 500;
-    font-size: 0.9rem;
-  }
-  .form-group input, .form-group select {
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    background-color: #f0f0f0;
-  }

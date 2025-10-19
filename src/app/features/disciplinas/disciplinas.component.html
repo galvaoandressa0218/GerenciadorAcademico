@@ -1,7 +1,7 @@
 <div class="page-container">
-  
+
   <header class="header-bar">
-    <h1>Adicionar disciplina</h1>
+    <h1>Disciplinas</h1>
   </header>
 
   <div class="content-table-wrapper">
@@ -13,32 +13,42 @@
           <th class="col-ch">Carga horária</th>
           <th class="col-tipo">Tipo</th>
           <th class="col-class">Classificação</th>
-        </tr>
+          <th class="col-action"></th> </tr>
       </thead>
+
       <tbody>
         @for (disc of disciplines(); track disc.id) {
           <tr class="discipline-row" (click)="toggleExpand(disc)">
-            <td class="col-nome nome-expand">
-              <div class="nome-principal">{{ disc.nome }} {{ disc.codigo }}</div>
-              <div class="desc-toggle">descrição</div>
+            <td>
+              <div class="nome-principal">{{ disc.nome }} ({{ disc.codigo }})</div>
             </td>
-            <td class="col-curso">{{ disc.curso }}</td>
-            <td class="col-ch">{{ disc.cargaHoraria }}h</td>
-            <td class="col-tipo">{{ disc.tipo }}</td>
-            <td class="col-class classificacao">{{ disc.classificacao }}</td>
+            <td>{{ disc.curso }}</td>
+            <td>{{ disc.cargaHoraria }}h</td>
+            <td>{{ disc.tipo }}</td>
+            <td>{{ disc.classificacao }}</td>
+            <td>
+              <svg class="expand-icon" [class.rotated]="disc.expanded" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+              </svg>
+            </td>
           </tr>
+
           @if (disc.expanded) {
             <tr class="description-row">
-              <td colspan="5" class="description-content">
+              <td colspan="6" class="description-content">
                 <p>{{ disc.descricao }}</p>
               </td>
             </tr>
           }
+        } @empty {
+          <tr>
+            <td colspan="6" style="text-align: center; padding: 20px;">Nenhuma disciplina encontrada.</td>
+          </tr>
         }
       </tbody>
     </table>
-  </div>
-  
+    </div>
+
   <footer class="footer-actions">
     <app-botao-adicionar
       [textoBotao]="'+ Adicionar Disciplina'"
@@ -48,44 +58,8 @@
 </div>
 
 @if (isModalVisible()) {
-  <app-pop-up
-    title="Adicionar Nova Disciplina"
+  <app-pop-up-adicionar-materia
     (close)="handleCloseModal()"
-    (save)="handleSaveDiscipline()">
-    
-    <form [formGroup]="disciplinaForm" class="form-container">
-      <div class="form-field">
-        <label for="nome">Nome</label>
-        <input id="nome" type="text" formControlName="nome">
-      </div>
-      <div class="form-field">
-        <label for="codigo">Código</label>
-        <input id="codigo" type="text" formControlName="codigo">
-      </div>
-      <div class="form-field">
-        <label for="cargaHoraria">Carga Horária</label>
-        <input id="cargaHoraria" type="number" formControlName="cargaHoraria">
-      </div>
-      <div class="form-field">
-          <label for="tipo">Tipo</label>
-          <select id="tipo" formControlName="tipo">
-              @for(tipo of tiposDisciplina; track tipo) {
-                <option [value]="tipo">{{ tipo }}</option>
-              }
-          </select>
-      </div>
-      <div class="form-field">
-          <label for="classificacao">Classificação</label>
-          <select id="classificacao" formControlName="classificacao">
-              @for(class of classificacoesDisciplina; track class) {
-                <option [value]="class">{{ class }}</option>
-              }
-          </select>
-      </div>
-       <div class="form-field">
-        <label for="descricao">Descrição</label>
-        <textarea id="descricao" formControlName="descricao"></textarea>
-      </div>
-    </form>
-  </app-pop-up>
+    (save)="handleSaveNewDiscipline($event)"
+  ></app-pop-up-adicionar-materia>
 }
