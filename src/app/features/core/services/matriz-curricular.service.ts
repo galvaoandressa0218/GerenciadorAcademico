@@ -20,6 +20,7 @@ export interface Semestre {
 export interface MatrizCurricular {
   id: number;
   nomeMatriz: string;
+  nomeCurso: string;
   turno: string;
   campus: string;
   habilitacao: string;
@@ -33,8 +34,17 @@ export interface MatrizCurricular {
 export class MatrizCurricularService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/api/matrizes-curriculares`;
+  private disciplinaMatrizApiUrl = `${environment.apiUrl}/api/disciplinas-matriz`;
 
   public getMatrizById(id: number): Observable<MatrizCurricular> {
     return this.http.get<MatrizCurricular>(`${this.apiUrl}/${id}/detalhes`);
+  }
+
+  public getMatrizByCursoId(cursoId: number): Observable<MatrizCurricular> {
+    return this.http.get<MatrizCurricular>(`${this.apiUrl}/curso/${cursoId}`);
+  }
+
+  public addDisciplinaToMatriz(data: any): Observable<any> {
+    return this.http.post(this.disciplinaMatrizApiUrl, data);
   }
 }

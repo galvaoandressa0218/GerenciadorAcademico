@@ -3,7 +3,7 @@
     <main class="content-area">
       <header class="content-header">
         <div class="info">
-          <h1>{{ m.habilitacao }}</h1>
+          <h1>{{ m.nomeCurso }}</h1>
           <p>Matriz: {{ m.nomeMatriz }}</p>
           <p>Campus: {{ m.campus }} | Turno: {{ m.turno }}</p>
         </div>
@@ -58,6 +58,7 @@
 
 @if(isOrganizarModalVisible()) {
   <app-organizar-matriz
+    [idMatriz]="matriz()?.id!" 
     (close)="closeOrganizarModal()"
     (save)="handleSaveOrganizar($event)">
   </app-organizar-matriz>

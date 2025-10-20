@@ -13,17 +13,12 @@ interface NavItem {
 @Component({
   selector: 'app-barralateral',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    RouterLinkActive,
-  ],
+  imports: [ CommonModule, RouterLink, RouterLinkActive ],
   templateUrl: './barra-lateral.component.html',
   styleUrls: ['./barra-lateral.component.css']
 })
 export class SidebarComponent {
   private authService = inject(AuthService);
-  
   public isAdmin = this.authService.isAdmin;
 
   public navItems: NavItem[] = [
@@ -31,7 +26,7 @@ export class SidebarComponent {
     { icon: 'people', label: 'Professores', route: '/app/professores' },
     { icon: 'menu_book', label: 'Disciplinas', route: '/app/disciplinas' },
     { icon: 'calendar_today', label: 'Cronogramas', route: '/app/cronogramas' },
-    { icon: 'grid_view', label: 'Matrizes Curriculares', route: '/app/matriz-curricular' },
+    { icon: 'grid_view', label: 'Matrizes Curriculares', route: '/app/matriz-curricular/1' },
     { icon: 'import_contacts', label: 'Referencias bibliograficas', route: '/app/referencias-bibliograficas' }
   ];
 

@@ -1,11 +1,10 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, of } from 'rxjs';
 import { MatrizCurricular, MatrizCurricularService } from '../core/services/matriz-curricular.service';
 import { OrganizarMatrizComponent } from '../../shared/organizar-matriz/organizar-matriz.component';
 import { BarraCliqueComponent } from '../../shared/barra-clique/barra-clique.component';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-matriz-curricular',
@@ -21,29 +20,45 @@ import { of } from 'rxjs';
 export class MatrizCurricularComponent implements OnInit {
   private matrizService = inject(MatrizCurricularService);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   public matriz = signal<MatrizCurricular | null>(null);
   public isLoading = signal(true);
   public error = signal<string | null>(null);
-  public openSemesterIndex = signal<number | string | null>(null);
+  public openSemesterIndex = signal<number | null>(null);
   public isOrganizarModalVisible = signal(false);
 
   ngOnInit(): void {
+    this.loadMatriz();
+  }
+
+  private loadMatriz(): void {
     this.route.paramMap.pipe(
       switchMap(params => {
         const id = params.get('id');
-        if (id) {
-          this.isLoading.set(true);
+        const isCursoRoute = this.router.url.includes('/matriz-curricular/curso/');
+        
+        if (!id) {
+          this.error.set('Nenhum ID fornecido na URL.');
+          this.isLoading.set(false);
+          return of(null);
+        }
+
+        this.isLoading.set(true);
+        this.error.set(null);
+
+        if (isCursoRoute) {
+          return this.matrizService.getMatrizByCursoId(Number(id));
+        } else {
           return this.matrizService.getMatrizById(Number(id));
         }
-        this.isLoading.set(false);
-        this.error.set('Nenhum ID de matriz fornecido na URL.');
-        return of(null);
       })
     ).subscribe({
       next: (data) => {
         if (data) {
           this.matriz.set(data);
+        } else if (!this.error()) {
+          this.error.set('Matriz não encontrada.');
         }
         this.isLoading.set(false);
       },
@@ -55,7 +70,7 @@ export class MatrizCurricularComponent implements OnInit {
     });
   }
 
-  toggleSemester(index: number | string): void {
+  toggleSemester(index: number): void {
     this.openSemesterIndex.update(current => (current === index ? null : index));
   }
 
@@ -68,7 +83,15 @@ export class MatrizCurricularComponent implements OnInit {
   }
 
   handleSaveOrganizar(formData: any): void {
-    console.log('Salvando:', formData);
-    this.closeOrganizarModal();
+    this.matrizService.addDisciplinaToMatriz(formData).subscribe({
+      next: () => {
+        this.closeOrganizarModal();
+        this.loadMatriz();
+      },
+      error: (err) => {
+        console.error('Erro ao adicionar disciplina à matriz:', err);
+        alert('Falha ao adicionar disciplina. Verifique o console.');
+      }
+    });
   }
 }
