@@ -1,54 +1,29 @@
 <div class="page-container">
-  <header class="page-header">
-    <h1>Disciplinas Cadastradas</h1>
-  </header>
+  <h1 class="page-title">Matérias Cadastradas</h1>
 
-  <div class="list-header">
-    <span>Nome (Código)</span>
-    <span>Curso</span>
-    <span>Carga Horária</span>
-    <span>Tipo</span>
-    <span>Classificação</span>
-    <span class="status-header">Status</span>
-  </div>
+  <div class="list-container">
+    <div class="list-header">
+      <span>Nome</span>
+      <span>Curso</span>
+      <span>Carga Horária</span>
+      <span>Tipo</span>
+      <span>Classificação</span>
+    </div>
 
-  <div class="materias-list">
-    @for(materia of materias(); track materia.id) {
-      <div class="materia-item">
-        <div class="materia-row" (click)="toggleExpand(materia)">
-          <span class="nome-materia">{{ materia.nome }} ({{ materia.codigo }})</span>
-          <span>{{ materia.curso }}</span>
+    <div class="list-body">
+      @for(materia of materias(); track materia.id) {
+        <div class="materia-row" (click)="navigateToDetail(materia)">
+          <span>{{ materia.nome }} ({{ materia.codigo }})</span>
+          <span>{{ materia.curso || 'N/D' }}</span>
           <span>{{ materia.cargaHoraria }}h</span>
           <span>{{ materia.tipo }}</span>
           <span>{{ materia.classificacao }}</span>
-          <div class="status-cell">
-            <span class="status-dot" [class.active]="materia.ativo"></span>
-          </div>
-          <div class="arrow-cell">
-            <svg class="arrow-icon" [class.expanded]="materia.expanded" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-          </div>
+          <div class="arrow-cell">></div>
         </div>
-
-        @if (materia.expanded) {
-          <div class="materia-details">
-            <div class="detail-section">
-              <div class="detail-header">
-                <span>Ementa</span>
-                <i class="fas fa-cog icon-settings" *ngIf="isAdmin" (click)="onEdit(materia); $event.stopPropagation()"></i>
-              </div>
-              <p class="detail-content">{{ materia.ementa || 'Nenhuma ementa cadastrada.' }}</p>
-            </div>
-            
-            <div class="details-actions" *ngIf="isAdmin">
-              <button class="btn-edit" (click)="onEdit(materia); $event.stopPropagation()">Editar</button>
-              <button class="btn-delete" (click)="onDelete(materia.id); $event.stopPropagation()">Excluir</button>
-            </div>
-          </div>
-        }
-      </div>
-    } @empty {
-      <p style="text-align: center; padding: 20px;">Nenhuma disciplina cadastrada.</p>
-    }
+      } @empty {
+        <p class="empty-message">Nenhuma disciplina cadastrada.</p>
+      }
+    </div>
   </div>
 
   <footer class="footer-actions" *ngIf="isAdmin">

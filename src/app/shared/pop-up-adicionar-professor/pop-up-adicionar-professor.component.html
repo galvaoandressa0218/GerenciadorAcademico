@@ -14,7 +14,15 @@
 
       <div class="form-field">
         <label for="numeroRegistro">Registro</label>
-        <input id="numeroRegistro" type="number" formControlName="numeroRegistro" placeholder="Apenas números">
+        <input id="numeroRegistro" type="text" formControlName="numeroRegistro" placeholder="0000000/UF">
+      </div>
+
+      <div class="form-field">
+        <label for="status">Status</label>
+        <select id="status" formControlName="ativo">
+          <option [value]="true">Ativo</option>
+          <option [value]="false">Inativo</option>
+        </select>
       </div>
 
       <div class="modal-actions">

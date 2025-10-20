@@ -24,12 +24,13 @@ export class PopUpAdicionarProfessorComponent implements OnInit {
       nomeCompleto: ['', Validators.required],
       escolaVinculada: ['', Validators.required],
       numeroRegistro: ['', Validators.required],
+      ativo: [true, Validators.required]
     });
   }
 
   ngOnInit(): void {
     if (this.professorToEdit) {
-      this.professorForm.patchValue(this.professorToEdit);
+      this.professorForm.patchValue(this.professorToEdit); 
     }
   }
 

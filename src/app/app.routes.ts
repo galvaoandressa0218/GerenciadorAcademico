@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './features/core/guards/auth.guard';
-import { adminGuard } from './features/core/guards/admin.guard';
+//import { authGuard } from './features/core/guards/auth.guard';
+//import { adminGuard } from './features/core/guards/admin.guard';
 import { LoginComponent } from './features/login/login.component';
 import { RecuperarSenhaComponent } from './features/recuperar-senha/recuperar-senha.component';
 import { MainLayoutComponent } from './features/main-layout-component/main-layout-component.component';
@@ -13,13 +13,13 @@ export const routes: Routes = [
   {
     path: 'app',
     component: MainLayoutComponent,
-    canActivate: [authGuard],
+  //  canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'cursos', pathMatch: 'full' },
       { path: 'cursos', component: CursosComponent },
       {
         path: 'professores',
-        canActivate: [adminGuard],
+       // canActivate: [adminGuard],
         loadComponent: () => import('./features/professores/professores.component').then(m => m.ProfessoresComponent)
       },
       {

@@ -1,20 +1,87 @@
-@if (disciplina) {
+@if (disciplina()) {
   <div class="disciplina-container">
     <header class="page-header">
-      <h1>{{ disciplina.nome }} ({{ disciplina.codigo }})</h1>
+      <h1>{{ disciplina()?.nome }} ({{ disciplina()?.codigo }})</h1>
     </header>
 
     <div class="secao">
       <div class="secao-header">
         <h2>Ementa</h2>
-        <i class="fas fa-cog edit-icon" (click)="abrirModal('ementa')" title="Editar Ementa"></i>
+        <i class="fas fa-cog edit-icon" (click)="abrirModal('Ementa', disciplina()?.ementa || '')" title="Editar Ementa"></i>
       </div>
       <div class="secao-body">
-        <p>{{ disciplina.ementa }}</p>
+        <p>{{ disciplina()?.ementa || 'Nenhuma ementa cadastrada.' }}</p>
       </div>
     </div>
 
+    <div class="secao">
+      <div class="secao-header">
+        <h2>Objetivos</h2>
+        <i class="fas fa-cog edit-icon" (click)="abrirModal('Objetivos', disciplina()?.objetivos?.join('\n') || '')" title="Editar Objetivos"></i>
+      </div>
+      <div class="secao-body">
+        <ul>
+          @for(obj of disciplina()?.objetivos; track $index) {
+            <li>{{ obj }}</li>
+          } @empty {
+            <li>Nenhum objetivo cadastrado.</li>
+          }
+        </ul>
+      </div>
     </div>
+
+    <div class="secao">
+      <div class="secao-header">
+        <h2>Conteúdo programático</h2>
+        <i class="fas fa-cog edit-icon" (click)="abrirModal('Conteúdo programático', disciplina()?.conteudo?.join('\n') || '')" title="Editar Conteúdo"></i>
+      </div>
+      <div class="secao-body">
+        <ul>
+          @for(item of disciplina()?.conteudo; track $index) {
+            <li>{{ item }}</li>
+          } @empty {
+            <li>Nenhum conteúdo cadastrado.</li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="secao">
+      <div class="secao-header">
+        <h2>metodologia</h2>
+        <i class="fas fa-cog edit-icon" (click)="abrirModal('Metodologia', disciplina()?.metodologia?.join('\n') || '')" title="Editar Metodologia"></i>
+      </div>
+      <div class="secao-body">
+         <ul>
+          @for(item of disciplina()?.metodologia; track $index) {
+            <li>{{ item }}</li>
+          } @empty {
+            <li>Nenhuma metodologia cadastrada.</li>
+          }
+        </ul>
+      </div>
+    </div>
+
+     <div class="secao">
+      <div class="secao-header">
+        <h2>Sistema de Avaliação</h2>
+        <i class="fas fa-cog edit-icon" (click)="abrirModal('Sistema de Avaliação', disciplina()?.avaliacao?.join('\n') || '')" title="Editar Avaliação"></i>
+      </div>
+      <div class="secao-body">
+         <ul>
+          @for(item of disciplina()?.avaliacao; track $index) {
+            <li>{{ item }}</li>
+          } @empty {
+            <li>Nenhum sistema de avaliação cadastrado.</li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-adicionar" (click)="adicionarPrograma()">Adicionar programa</button>
+    </div>
+  </div>
 } @else {
   @if(isLoading()) {
     <p>Carregando detalhes da disciplina...</p>
@@ -22,4 +89,12 @@
   @if(error()) {
     <p style="color: red;">{{ error() }}</p>
   }
+}
+
+@if (isModalVisible()) {
+  <app-pop-up [title]="modalTitle()" (close)="fecharModal()" (save)="salvarAlteracoes()">
+    <div class="input-area">
+      <textarea [(ngModel)]="modalContent" rows="10"></textarea>
+    </div>
+  </app-pop-up>
 }

@@ -1,50 +1,45 @@
-
 :host {
-  --cor-laranja: #f39c12;
-  --cor-laranja-hover: #e67e22;
-  --cor-fundo: #f4f7f6;
-  --cor-texto-escuro: #333;
-  --cor-texto-claro: #fff;
-  --sombra-padrao: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: block;
+  background-color: #f4f7f6;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .disciplina-container {
   max-width: 900px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: var(--cor-fundo);
-  font-family: 'Geist', sans-serif;
 }
 
 .page-header h1 {
   font-size: 2rem;
   font-weight: 500;
-  color: var(--cor-texto-escuro);
+  color: #333;
   margin-bottom: 2rem;
-  border-bottom: 2px solid #ddd;
   padding-bottom: 1rem;
 }
 
 .secao {
   margin-bottom: 1.5rem;
-  background-color: var(--cor-texto-claro);
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: var(--sombra-padrao);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+}
 
 .secao-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.8rem 1.5rem;
-  background-color: var(--cor-laranja);
-  color: var(--cor-texto-claro);
+  background-color: #f58220; /* Laranja */
+  color: #fff;
 }
 
 .secao-header h2 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
+  text-transform: capitalize;
 }
 
 .edit-icon {
@@ -55,13 +50,12 @@
 
 .edit-icon:hover {
   transform: rotate(45deg);
-  color: #fdebd0;
 }
 
 .secao-body {
   padding: 1.5rem;
-  color: var(--cor-texto-escuro);
-  line-height: 1.6;
+  color: #555;
+  line-height: 1.7;
 }
 
 .secao-body p,
@@ -82,16 +76,28 @@
 .btn-adicionar {
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
-  font-weight: 600;
-  color: var(--cor-texto-claro);
-  background-color: var(--cor-laranja);
+  font-weight: 500;
+  color: #fff;
+  background-color: #f58220; /* Laranja */
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  box-shadow: var(--sombra-padrao);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.2s ease;
 }
 
 .btn-adicionar:hover {
-  background-color: var(--cor-laranja-hover);
-}}
+  background-color: #e67e22;
+}
+
+/* Estilo para a área de texto dentro do modal */
+.input-area textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 1rem;
+    color: #333;
+}

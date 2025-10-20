@@ -1,18 +1,13 @@
-<!-- Backdrop (fundo escuro) - Clicar aqui fecha o modal -->
-<div class="modal-backdrop" (click)="close.emit()">
+<div (click)="close.emit()">
   <div class="modal-content" (click)="stopPropagation($event)">
     
-    <!-- Título do Modal -->
-    <h3>{{ title }}</h3>
+    <label class="modal-label">{{ title }}</label>
     
-    <!-- Slot para o conteúdo específico da seção (ex: campos de edição) -->
     <ng-content></ng-content>
     
-    <!-- Ações Padrões -->
     <div class="modal-actions">
-        <button class="modal-close" (click)="close.emit()">Fechar</button>
-        <button class="modal-save" (click)="save.emit()">Salvar</button>
+        <button class="modal-save" (click)="save.emit()">Finalizar</button>
     </div>
-    
+  
   </div>
 </div>
