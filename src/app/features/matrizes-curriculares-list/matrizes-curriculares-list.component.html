@@ -1,0 +1,29 @@
+<div class="page-container">
+  <h1 class="page-title">Matrizes Curriculares Cadastradas</h1>
+  
+  @if (isLoading()) {
+    <p>Carregando...</p>
+  } @else {
+    <div class="list-container">
+      <div class="list-header">
+        <span>Nome da Matriz</span>
+        <span>Habilitação</span>
+        <span>Campus</span>
+        <span>Turno</span>
+      </div>
+      <div class="list-body">
+        @for (matriz of matrizes(); track matriz.id) {
+          <div class="item-row" (click)="navigateToDetail(matriz)">
+            <span>{{ matriz.nomeMatriz }}</span>
+            <span>{{ matriz.habilitacao }}</span>
+            <span>{{ matriz.campus }}</span>
+            <span>{{ matriz.turno }}</span>
+            <span class="arrow-cell">></span>
+          </div>
+        } @empty {
+          <p class="empty-message">Nenhuma matriz curricular encontrada. Crie um curso para gerar uma matriz.</p>
+        }
+      </div>
+    </div>
+  }
+</div>

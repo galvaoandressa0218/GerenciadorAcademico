@@ -26,7 +26,7 @@ export class SidebarComponent {
     { icon: 'people', label: 'Professores', route: '/app/professores' },
     { icon: 'menu_book', label: 'Disciplinas', route: '/app/disciplinas' },
     { icon: 'calendar_today', label: 'Cronogramas', route: '/app/cronogramas' },
-    { icon: 'grid_view', label: 'Matrizes Curriculares', route: '/app/matriz-curricular/1' },
+    { icon: 'grid_view', label: 'Matrizes Curriculares', route: '/app/matrizes-curriculares' },
     { icon: 'import_contacts', label: 'Referencias bibliograficas', route: '/app/referencias-bibliograficas' }
   ];
 

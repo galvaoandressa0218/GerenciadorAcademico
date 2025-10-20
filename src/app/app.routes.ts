@@ -31,8 +31,16 @@ export const routes: Routes = [
         loadComponent: () => import('./features/materias-cadastradas/materias-cadastradas.component').then(m => m.MateriasCadastradasComponent)
       },
       {
-        path: 'matriz-curricular/curso/:id',
-        loadComponent: () => import('./features/matriz-curricular/matriz-curricular.component').then(m => m.MatrizCurricularComponent)
+        // NOVA ROTA PARA A LISTAGEM
+        path: 'matrizes-curriculares', 
+        loadComponent: () => import('./features/matrizes-curriculares-list/matrizes-curriculares-list.component')
+                              .then(m => m.MatrizesCurricularesListComponent)
+      },
+      { 
+        // A rota de detalhes agora é acessada a partir da lista
+        path: 'matriz-curricular/:id', 
+        loadComponent: () => import('./features/matriz-curricular/matriz-curricular.component')
+                              .then(m => m.MatrizCurricularComponent)
       },
       {
         path: 'referencias-bibliograficas',

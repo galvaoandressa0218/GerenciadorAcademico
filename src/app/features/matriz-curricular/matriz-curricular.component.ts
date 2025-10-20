@@ -2,7 +2,8 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, of } from 'rxjs';
-import { MatrizCurricular, MatrizCurricularService } from '../core/services/matriz-curricular.service';
+import { MatrizCurricularService } from '../core/services/matriz-curricular.service';
+import { MatrizCurricular } from '../core/model/matriz-curricular.model'; // CORREÇÃO APLICADA AQUI
 import { OrganizarMatrizComponent } from '../../shared/organizar-matriz/organizar-matriz.component';
 import { BarraCliqueComponent } from '../../shared/barra-clique/barra-clique.component';
 
