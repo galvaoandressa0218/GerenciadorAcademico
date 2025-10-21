@@ -28,20 +28,7 @@ export class ReferenciasBibliograficasComponent implements OnInit {
   }
 
   loadReferencias(): void {
-    const dadoMockado: Referencia = {
-      id: 1,
-      titulo: 'Engenharia de Software Moderna',
-      autor: 'Marco Tulio Valente',
-      tipo: 'FISICO',
-      edicao: '1ª',
-      categoria: 'BASICA',
-      imagemUrl: '',
-      local: 'Belo Horizonte',
-      editora: 'Independente',
-      ano: 2020,
-      isbn: '978-85-913054-1-8'
-    };
-    this.referencias.set([dadoMockado]);
+    this.referenciaService.getReferencias().subscribe(data => this.referencias.set(data));
   }
 
   toggleExpand(id: number): void {

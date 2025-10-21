@@ -34,26 +34,41 @@ export class MatrizCurricularComponent implements OnInit {
   }
 
   private loadMatriz(): void {
-    const dadoMockado: MatrizCurricular = {
-      id: 1,
-      nomeMatriz: 'Matriz 2025.1',
-      nomeCurso: 'Engenharia de Software',
-      turno: 'Noturno',
-      campus: 'Federação',
-      habilitacao: 'Bacharelado',
-      horasComplementares: 200,
-      semestres: [
-        { 
-          semestre: 1, 
-          disciplinas: [
-            { id: 101, nome: 'Lógica de Programação', codigo: 'COMP-101', cargaHoraria: 68, tipo: 'PRESENCIAL', classificacao: 'TEORICA' },
-            { id: 102, nome: 'Cálculo I', codigo: 'MAT-101', cargaHoraria: 80, tipo: 'PRESENCIAL', classificacao: 'TEORICA' }
-          ] 
+    this.route.paramMap.pipe(
+      switchMap(params => {
+        const id = params.get('id');
+        const isCursoRoute = this.router.url.includes('/matriz-curricular/curso/');
+        
+        if (!id) {
+          this.error.set('Nenhum ID fornecido na URL.');
+          this.isLoading.set(false);
+          return of(null);
         }
-      ]
-    };
-    this.matriz.set(dadoMockado);
-    this.isLoading.set(false);
+
+        this.isLoading.set(true);
+        this.error.set(null);
+
+        if (isCursoRoute) {
+          return this.matrizService.getMatrizByCursoId(Number(id));
+        } else {
+          return this.matrizService.getMatrizById(Number(id));
+        }
+      })
+    ).subscribe({
+      next: (data) => {
+        if (data) {
+          this.matriz.set(data);
+        } else if (!this.error()) {
+          this.error.set('Matriz não encontrada.');
+        }
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        console.error('Falha ao carregar matriz:', err);
+        this.error.set('Não foi possível carregar os detalhes da matriz curricular.');
+        this.isLoading.set(false);
+      }
+    });
   }
 
   toggleSemester(index: number): void {

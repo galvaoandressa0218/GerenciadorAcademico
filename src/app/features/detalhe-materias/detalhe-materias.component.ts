@@ -34,23 +34,35 @@ export class DetalheMateriasComponent implements OnInit {
   public isProgramaModalVisible = signal(false);
 
   ngOnInit(): void {
-    const dadoMockado: Disciplina = {
-      id: 1,
-      nome: 'Arquitetura de Software',
-      codigo: 'COMP-123',
-      cargaHoraria: 68,
-      tipo: 'PRESENCIAL',
-      classificacao: 'TEORICA',
-      descricao: 'Estudo dos padrões e estruturas para desenvolvimento de sistemas robustos.',
-      ativo: true,
-      ementa: 'Conceitos fundamentais de arquitetura de software, estilos arquiteturais, padrões de projeto e documentação de arquitetura.',
-      objetivos: ['Capacitar o aluno a compreender e aplicar conceitos de arquitetura.', 'Desenvolver habilidades para selecionar padrões adequados.'],
-      conteudo: ['Introdução à Arquitetura de Software', 'Estilos arquiteturais (camadas, cliente-servidor, etc.)', 'Padrões de Projeto (GoF)'],
-      metodologia: ['Aulas expositivas com apoio de recursos multimídia.', 'Discussão de estudos de caso reais.'],
-      avaliacao: ['Provas teóricas (40%)', 'Trabalhos práticos (30%)', 'Projetos em grupo (30%)']
-    };
-    this.disciplina.set(dadoMockado);
-    this.isLoading.set(false);
+    this.route.paramMap.pipe(
+      switchMap(params => {
+        const id = params.get('id');
+        if (id) {
+          return this.disciplinaService.getDisciplinaById(Number(id));
+        }
+        this.error.set('ID da matéria é inválido.');
+        this.isLoading.set(false);
+        return of(null);
+      })
+    ).subscribe({
+      next: (data) => {
+        if (data) {
+          this.disciplina.set({
+            ...data,
+            objetivos: data.objetivos || [],
+            conteudo: data.conteudo || [],
+            metodologia: data.metodologia || [],
+            avaliacao: data.avaliacao || []
+          });
+        }
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        this.error.set('Não foi possível carregar os detalhes da disciplina.');
+        this.isLoading.set(false);
+        console.error(err);
+      }
+    });
   }
 
   abrirModal(secao: string, conteudo: string | string[]): void {
@@ -69,9 +81,8 @@ export class DetalheMateriasComponent implements OnInit {
     const newContent = this.modalContent();
     this.disciplina.update(currentDisciplina => {
       if (!currentDisciplina) return null;
-
-      const updatedDisciplina = { ...currentDisciplina };
       
+      const updatedDisciplina = { ...currentDisciplina };
       const isArrayField = ['objetivos', 'conteudo', 'metodologia', 'avaliacao'].includes(sectionToUpdate);
       (updatedDisciplina as any)[sectionToUpdate] = isArrayField ? newContent.split('\n') : newContent;
       

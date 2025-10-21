@@ -32,20 +32,16 @@ export class MateriasCadastradasComponent implements OnInit {
   }
 
   loadMaterias(): void {
-    const dadoMockado: Disciplina = {
-      id: 101,
-      nome: 'Arquitetura de Software',
-      codigo: 'COMP-123',
-      cargaHoraria: 68,
-      tipo: 'PRESENCIAL',
-      classificacao: 'TEORICA',
-      descricao: 'Estudo dos padrões e estruturas para desenvolvimento de sistemas robustos.',
-      ativo: true,
-      curso: 'Engenharia de Software',
-      expanded: false
-    };
-    this.materias.set([dadoMockado]);
-    this.isLoading.set(false);
+    this.disciplinaService.getDisciplinas().subscribe({
+      next: (data) => {
+        this.materias.set(data);
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        console.error("Erro ao buscar matérias cadastradas:", err);
+        this.isLoading.set(false);
+      }
+    });
   }
 
   navigateToDetail(materia: Disciplina): void {

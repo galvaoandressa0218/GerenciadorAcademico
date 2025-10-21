@@ -32,16 +32,12 @@ export class ProfessoresComponent implements OnInit {
   }
 
   loadProfessors(): void {
-    const dadoMockado: Professor = {
-      id: 1,
-      nomeCompleto: 'Dr. Andressa Galvão',
-      numeroRegistro: 1234567,
-      escolaVinculada: 'Universidade Federal da Bahia',
-      ativo: true,
-      dataCadastro: new Date().toISOString()
-    };
-    this.professors.set([dadoMockado]);
-    this.isLoading.set(false);
+    this.isLoading.set(true);
+    this.professorService.getProfessores().subscribe({
+      next: (data) => this.professors.set(data),
+      error: (err) => console.error('Erro ao carregar professores:', err),
+      complete: () => this.isLoading.set(false)
+    });
   }
 
   openModalToAdd(): void {
