@@ -1,18 +1,20 @@
-
 export interface Disciplina {
-   id: number;
+  id?: number;
   nome: string;
-  codigo: string;
-  cargaHoraria: number;
+  codigo: string; 
+  cargaHoraria: number; 
   tipo: string;
   classificacao: string;
-  descricao: string;
   ativo: boolean;
-  ementa?: string;
-  objetivos?: string[];
-  conteudo?: string[];
-  metodologia?: string[];
-  avaliacao?: string[];
+  
+  descricao?: string; 
+  curso?: string;     
+  
+  // Campos mock/auxiliares para a interface do programa
+  ementa?: string; 
+  objetivos?: string[] | string;
+  conteudo?: string[] | string;
+  metodologia?: string[] | string;
+  avaliacao?: string[] | string;
   expanded?: boolean;
-  curso?: string;
 }

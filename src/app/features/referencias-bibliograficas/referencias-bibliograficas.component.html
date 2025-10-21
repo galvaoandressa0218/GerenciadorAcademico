@@ -41,7 +41,7 @@
           }
           <p><strong>Tipo:</strong> {{ ref.tipo }}</p>
         </div>
-        <div class="details-actions" *ngIf="isAdmin">
+        <div class="details-actions" *ngIf="isProfessor">
            <button class="btn-action btn-edit" (click)="handleEdit(ref); $event.stopPropagation()">Editar</button>
            <button class="btn-action btn-delete" (click)="handleDelete(ref.id); $event.stopPropagation()">Excluir</button>
         </div>
@@ -51,7 +51,7 @@
     }
   </div>
 
-  <footer class="footer-actions" *ngIf="isAdmin">
+  <footer class="footer-actions" *ngIf="isProfessor">
     <app-botao-adicionar [textoBotao]="'+ Adicionar Referências'" (clickEvent)="openAddModal()">
     </app-botao-adicionar>
   </footer>

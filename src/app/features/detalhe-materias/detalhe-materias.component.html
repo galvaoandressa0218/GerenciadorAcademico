@@ -17,7 +17,7 @@
     <div class="secao">
       <div class="secao-header">
         <h2>Objetivos</h2>
-        <i class="fas fa-cog edit-icon" (click)="abrirModal('Objetivos', disciplina()?.objetivos?.join('\n') || '')" title="Editar Objetivos"></i>
+        <i class="fas fa-cog edit-icon" (click)="abrirModal('Objetivos', disciplina()?.objetivos || '')" title="Editar Objetivos"></i>
       </div>
       <div class="secao-body">
         <ul>
@@ -33,9 +33,10 @@
     <div class="secao">
       <div class="secao-header">
         <h2>Conteúdo programático</h2>
-        <i class="fas fa-cog edit-icon" (click)="abrirModal('Conteúdo programático', disciplina()?.conteudo?.join('\n') || '')" title="Editar Conteúdo"></i>
+        <i class="fas fa-cog edit-icon" (click)="abrirModal('Conteúdo programático', disciplina()?.conteudo || '')" title="Editar Conteúdo"></i>
       </div>
-      <div class="secao-body">
+ 
+     <div class="secao-body">
         <ul>
           @for(item of disciplina()?.conteudo; track $index) {
             <li>{{ item }}</li>
@@ -49,7 +50,7 @@
     <div class="secao">
       <div class="secao-header">
         <h2>metodologia</h2>
-        <i class="fas fa-cog edit-icon" (click)="abrirModal('Metodologia', disciplina()?.metodologia?.join('\n') || '')" title="Editar Metodologia"></i>
+        <i class="fas fa-cog edit-icon" (click)="abrirModal('Metodologia', disciplina()?.metodologia || '')" title="Editar Metodologia"></i>
       </div>
       <div class="secao-body">
          <ul>
@@ -65,7 +66,7 @@
      <div class="secao">
       <div class="secao-header">
         <h2>Sistema de Avaliação</h2>
-        <i class="fas fa-cog edit-icon" (click)="abrirModal('Sistema de Avaliação', disciplina()?.avaliacao?.join('\n') || '')" title="Editar Avaliação"></i>
+        <i class="fas fa-cog edit-icon" (click)="abrirModal('Sistema de Avaliação', disciplina()?.avaliacao || '')" title="Editar Avaliação"></i>
       </div>
       <div class="secao-body">
          <ul>
@@ -97,4 +98,12 @@
       <textarea [(ngModel)]="modalContent" rows="10"></textarea>
     </div>
   </app-pop-up>
+}
+
+@if (isProgramaModalVisible()) {
+  <app-pop-up-adicionar-programa
+    [idDisciplina]="disciplina()?.id!"
+    (close)="closeProgramaModal()"
+    (save)="handleSavePrograma($event)">
+  </app-pop-up-adicionar-programa>
 }

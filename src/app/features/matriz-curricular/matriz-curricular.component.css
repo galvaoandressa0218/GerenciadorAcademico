@@ -1,14 +1,8 @@
-.main-container {
+:host {
+  display: block;
   background-color: #f0f2f5;
   padding: 24px;
   min-height: 100vh;
-}
-
-.content-area {
-  background: #fff;
-  border-radius: 8px;
-  padding: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .content-header {
@@ -16,19 +10,33 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 24px;
-  gap: 16px;
 }
 
 .info h1 {
   margin: 0;
-  font-size: 1.6rem;
-  color: #222;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #333;
 }
 
 .info p {
-  margin: 4px 0;
+  margin: 4px 0 0 0;
   font-size: 0.9rem;
   color: #555;
+  display: block;
+}
+
+.btn-organizar {
+  background-color: #f58220;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 25px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease;
 }
 
 .curriculum-accordion {
@@ -43,62 +51,61 @@
 }
 
 .accordion-content {
-  background-color: #e0e0e0;
-  padding: 10px 14px;
-  animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+  background-color: #ffffff;
+  padding: 15px 20px;
 }
 
 .discipline-row {
-  background-color: #f7f7f7;
-  margin-bottom: 6px;
-  padding: 10px 14px;
-  border-radius: 4px;
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 3fr 0.5fr 0.5fr 1fr 1fr;
   gap: 10px;
   align-items: center;
-  color: #333;
+  color: #555;
   font-size: 0.9rem;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.discipline-row:last-child {
+  border-bottom: none;
 }
 
 .discipline-name {
   font-weight: 600;
+  color: #333;
+}
+
+.empty-disciplines {
+  padding: 10px 0;
+  color: #777;
 }
 
 .complementary-hours {
   margin-top: 20px;
   background-color: #f58220;
   color: #fff;
-  padding: 16px;
+  padding: 12px 16px;
   border-radius: 6px;
   display: inline-block;
+  width: 250px;
 }
 
-.complementary-hours label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 6px;
-  text-transform: lowercase;
-}
-
-.input-group {
+.comp-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  margin-bottom: 6px;
 }
 
-.input-group input {
-  width: 70px;
+.comp-header label, .comp-header span {
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.complementary-hours input {
+  width: 100%;
+  box-sizing: border-box;
   text-align: center;
   font-weight: bold;
   border: none;
@@ -106,28 +113,5 @@
   padding: 8px;
   background-color: #fff;
   color: #333;
-}
-
-.input-group span {
-  background-color: #333;
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-}
-
-.btn-organizar {
-  background-color: #ff9800;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 25px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn-organizar:hover {
-  background-color: #fb8c00;
+  font-size: 1.5rem;
 }

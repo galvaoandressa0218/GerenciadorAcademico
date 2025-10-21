@@ -2,13 +2,14 @@ export interface Referencia {
   id: number;
   titulo: string;
   autor: string;
-  tipo: 'Fisico' | 'Digital';
+  tipo: 'FISICO' | 'DIGITAL'; 
   edicao: string;
-  categoria: 'Basica' | 'Complementar';
+  categoria: 'BASICA' | 'COMPLEMENTAR'; 
   imagemUrl: string;
   local: string;
   editora: string;
   ano: number;
   isbn: string;
   url?: string;
+  programa_id?: number;
 }

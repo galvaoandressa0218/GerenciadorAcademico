@@ -18,6 +18,11 @@ export class PopUpAdicionarReferenciaComponent implements OnInit {
   private fb = inject(FormBuilder);
   public form: FormGroup;
 
+  public programasDisponiveis = [
+    { id: 1, nome: 'Programa Exemplo 1' },
+    { id: 2, nome: 'Programa Exemplo 2' }
+  ];
+
   constructor() {
     this.form = this.fb.group({
       id: [null],
@@ -30,13 +35,18 @@ export class PopUpAdicionarReferenciaComponent implements OnInit {
       tipo: ['FISICO', Validators.required],
       categoria: ['BASICA', Validators.required],
       local: [''],
-      url: ['']
+      url: [''],
+      programa_id: [null, Validators.required] 
     });
   }
 
   ngOnInit(): void {
     if (this.referenciaToEdit) {
       this.form.patchValue(this.referenciaToEdit);
+    }
+    if (!this.referenciaToEdit) {
+        this.form.get('programa_id')?.setValidators(Validators.required);
+        this.form.get('programa_id')?.updateValueAndValidity();
     }
   }
 

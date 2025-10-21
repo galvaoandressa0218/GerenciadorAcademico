@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { Router } from '@angular/router'; // 1. IMPORTAR O ROUTER
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Disciplina } from '.././core/model/disciplina.model';
 import { DisciplinaService } from '.././core/services/disciplina.service';
@@ -19,7 +19,7 @@ export class MateriasCadastradasComponent implements OnInit {
   private disciplinaService = inject(DisciplinaService);
   private authService = inject(AuthService);
   private programaService = inject(ProgramaService);
-  private router = inject(Router); // 2. INJETAR O ROUTER
+  private router = inject(Router);
 
   public materias = signal<Disciplina[]>([]);
   public isLoading = signal(true);
@@ -32,28 +32,26 @@ export class MateriasCadastradasComponent implements OnInit {
   }
 
   loadMaterias(): void {
-    this.disciplinaService.getDisciplinas().subscribe({
-      next: (data) => {
-        // Não precisamos mais do 'expanded'
-        this.materias.set(data);
-        this.isLoading.set(false);
-      },
-      error: (err) => {
-        console.error("Erro ao buscar matérias cadastradas:", err);
-        this.isLoading.set(false);
-      }
-    });
+    const dadoMockado: Disciplina = {
+      id: 101,
+      nome: 'Arquitetura de Software',
+      codigo: 'COMP-123',
+      cargaHoraria: 68,
+      tipo: 'PRESENCIAL',
+      classificacao: 'TEORICA',
+      descricao: 'Estudo dos padrões e estruturas para desenvolvimento de sistemas robustos.',
+      ativo: true,
+      curso: 'Engenharia de Software',
+      expanded: false
+    };
+    this.materias.set([dadoMockado]);
+    this.isLoading.set(false);
   }
 
-  // 3. ADICIONAR NOVA FUNÇÃO DE NAVEGAÇÃO
   navigateToDetail(materia: Disciplina): void {
-    // A rota para o detalhe da matéria é '/app/materia/:id'
     this.router.navigate(['/app/materia', materia.id]);
   }
 
-  // A função toggleExpand não é mais necessária e pode ser removida
-
-  // Funções de CRUD (adicionar, editar, etc.) permanecem iguais
   openAddModal(): void {
     this.selectedMateria.set(null);
     this.isModalVisible.set(true);

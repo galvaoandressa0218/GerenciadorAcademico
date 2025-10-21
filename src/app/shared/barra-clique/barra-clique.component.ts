@@ -1,24 +1,20 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-barra-clique',
-  templateUrl: './barra-clique.component.html',
-  styleUrls: ['./barra-clique.component.css'],
   standalone: true,
-  imports: [CommonModule]
+  templateUrl: './barra-clique.component.html',
+  styleUrls: ['./barra-clique.component.css']
 })
 export class BarraCliqueComponent {
-  @Input() materia?: any;
-  @Input() referencia?: any;
-  
-  @Input() title?: string; 
-  @Input() showArrow?: boolean = false; 
-
-  @Input() estaAberta?: boolean = false;
+  @Input() title: string = '';
+  @Input() subtitle?: string;
+  @Input() showArrow: boolean = true;
+  @Input() estaAberta: boolean = false;
   @Output() barClicked = new EventEmitter<void>();
 
-  onBarClick(): void {
-    this.barClicked.emit();
+  handleClick(): void {
+    this.estaAberta = !this.estaAberta; // alterna estado visual
+    this.barClicked.emit(); // informa ao pai
   }
 }

@@ -1,94 +1,24 @@
 .barra-resumo {
-  display: grid;
-  align-items: center;
-  padding: 15px 20px;
-  background-color: #f39c12; 
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  border-radius: 5px; 
-  font-family: 'Geist', sans-serif; 
-  font-size: 1rem; 
-}
-
-.barra-resumo:hover {
-  background-color: #e67e22; 
-}
-
-.barra-materia {
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr; 
-  margin-bottom: 8px;
-}
-
-.barra-wrapper {
-  background-color: #fdebd0; 
-  margin-bottom: 8px;
-  border-radius: 5px;
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
-}
-
-.barra-wrapper .barra-resumo {
-  border-radius: 0; 
-}
-
-.barra-wrapper.aberta .barra-resumo {
-  background-color: #e67e22; 
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.barra-referencia {
-  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 50px; 
-}
-
-.icone-seta {
-  text-align: center;
-  font-size: 1.2em;
-  font-family: monospace; 
-}
-
-.barra-detalhes {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1.5fr;
-  gap: 20px;
-  padding: 20px;
-  color: #333;
-}
-
-.detalhes-imagem img {
-  width: 150px;
-  height: auto;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.detalhes-info p, .detalhes-links p {
-  margin: 0 0 8px 0;
-}
-
-.detalhes-info p strong, .detalhes-links p strong {
-  display: inline-block;
-  min-width: 80px;
-}
-
-.detalhes-links a {
-  color: #d35400;
-  word-break: break-all;
-}
-
-.barra-generica {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 15px 20px;
+  background-color: #f58220;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px; 
+  font-family: Arial, sans-serif; 
+  font-size: 1rem;
+  font-weight: bold;
 }
 
-.barra-generica .icone-seta {
+.icone-seta {
   width: 24px;
   height: 24px;
   fill: white;
   transition: transform 0.3s ease;
 }
 
-.barra-generica .icone-seta.aberta {
+.icone-seta.aberta {
   transform: rotate(180deg);
 }

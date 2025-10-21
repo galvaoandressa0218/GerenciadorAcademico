@@ -1,0 +1,30 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Adicionar Novo Programa</h2>
+    <form [formGroup]="programaForm">
+      <div class="form-field">
+        <label for="ementa">Ementa</label>
+        <textarea id="ementa" formControlName="ementa" rows="3"></textarea>
+      </div>
+      <div class="form-field">
+        <label for="objetivos">Objetivos</label>
+        <textarea id="objetivos" formControlName="objetivos" rows="3"></textarea>
+      </div>
+      <div class="form-field">
+        <label for="conteudo">Conteúdo Programático</label>
+        <textarea id="conteudo" formControlName="conteudo_programatico" rows="3"></textarea>
+      </div>
+       <div class="form-field">
+        <label for="metodologia">Metodologia</label>
+        <textarea id="metodologia" formControlName="metodologia" rows="3"></textarea>
+      </div>
+       <div class="form-field">
+        <label for="avaliacao">Sistema de Avaliação</label>
+        <textarea id="avaliacao" formControlName="sistema_avaliacao" rows="3"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="save-button" (click)="onSave()" [disabled]="programaForm.invalid">Salvar Programa</button>
+      </div>
+    </form>
+  </div>
+</div>

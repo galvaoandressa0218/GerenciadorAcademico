@@ -21,14 +21,27 @@ export class ReferenciasBibliograficasComponent implements OnInit {
   public expandedReferenciaId = signal<number | null>(null);
   public isModalVisible = signal(false);
   public selectedReferencia = signal<Referencia | null>(null);
-  public isAdmin = this.authService.isAdmin;
+  public isProfessor = this.authService.isProfessor;
 
   ngOnInit(): void {
     this.loadReferencias();
   }
 
   loadReferencias(): void {
-    this.referenciaService.getReferencias().subscribe(data => this.referencias.set(data));
+    const dadoMockado: Referencia = {
+      id: 1,
+      titulo: 'Engenharia de Software Moderna',
+      autor: 'Marco Tulio Valente',
+      tipo: 'FISICO',
+      edicao: '1ª',
+      categoria: 'BASICA',
+      imagemUrl: '',
+      local: 'Belo Horizonte',
+      editora: 'Independente',
+      ano: 2020,
+      isbn: '978-85-913054-1-8'
+    };
+    this.referencias.set([dadoMockado]);
   }
 
   toggleExpand(id: number): void {

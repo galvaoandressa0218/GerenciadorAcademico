@@ -68,7 +68,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  object-fit: cover; /* Garante que a imagem não distorça */
+  object-fit: cover;
 }
 
 .status-column {
@@ -84,7 +84,7 @@
 }
 
 .status-indicator.active {
-  background-color: #76ff03; /* Verde-limão como na imagem */
+  background-color: #76ff03;
 }
 
 .status-indicator.inactive {
@@ -95,4 +95,36 @@
   display: flex;
   justify-content: flex-end;
   padding: 24px 0 0 0;
+}
+
+.btn-action {
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-action:hover {
+  transform: translateY(-2px);
+}
+
+.btn-edit {
+  background-color: #f58220;
+}
+
+.btn-edit:hover {
+  background-color: #e67e22;
+}
+
+.btn-delete {
+  background-color: #c0392b;
+}
+
+.btn-delete:hover {
+  background-color: #a93226;
 }

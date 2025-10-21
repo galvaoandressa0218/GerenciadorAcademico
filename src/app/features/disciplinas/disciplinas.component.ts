@@ -32,12 +32,20 @@ export class DisciplinasComponent implements OnInit {
   }
 
   loadDisciplinas(): void {
-    this.isLoading.set(true);
-    this.disciplinaService.getDisciplinas().subscribe({
-      next: (data: Disciplina[]) => this.disciplines.set(data),
-      error: (err: any) => console.error('Erro ao carregar disciplinas:', err),
-      complete: () => this.isLoading.set(false)
-    });
+    const dadoMockado: Disciplina = {
+      id: 101,
+      nome: 'Arquitetura de Software',
+      codigo: 'COMP-123',
+      cargaHoraria: 68,
+      tipo: 'PRESENCIAL',
+      classificacao: 'TEORICA',
+      descricao: 'Estudo dos padrões e estruturas para desenvolvimento de sistemas robustos.',
+      ativo: true,
+      curso: 'Engenharia de Software',
+      expanded: false
+    };
+    this.disciplines.set([dadoMockado]);
+    this.isLoading.set(false);
   }
 
   openModalToAdd(): void {
@@ -68,7 +76,11 @@ export class DisciplinasComponent implements OnInit {
     });
   }
 
-  handleDelete(id: number): void {
+  handleDelete(id: number | undefined): void {
+    if (id === undefined) {
+      console.error("ID inválido para exclusão.");
+      return;
+    }
     if (confirm('Tem certeza que deseja excluir esta disciplina?')) {
       this.disciplinaService.deletarDisciplina(id).subscribe({
         next: () => {

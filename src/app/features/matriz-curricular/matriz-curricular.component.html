@@ -3,8 +3,8 @@
     <main class="content-area">
       <header class="content-header">
         <div class="info">
-          <h1>{{ m.nomeCurso }}</h1>
-          <p>Matriz: {{ m.nomeMatriz }}</p>
+          <h1>{{ m.nomeCurso || 'Engenharia de software' }}</h1>
+          <p>Habilitação: {{ m.habilitacao }}</p>
           <p>Campus: {{ m.campus }} | Turno: {{ m.turno }}</p>
         </div>
         <button class="btn-organizar" (click)="openOrganizarModal()">Organizar Matrizes</button>
@@ -25,40 +25,39 @@
                 @for(d of semestre.disciplinas; track d.id) {
                   <div class="discipline-row">
                     <span class="discipline-name">{{ d.nome }} ({{ d.codigo }})</span>
-                    <span>--</span>
+                    <span>Bes</span>
                     <span>{{ d.cargaHoraria }}h</span>
                     <span>{{ d.tipo }}</span>
                     <span>{{ d.classificacao }}</span>
                   </div>
+                } @empty {
+                  <p class="empty-disciplines">Nenhuma disciplina associada a este semestre.</p>
                 }
               </div>
             }
           </div>
         }
+         <div class="accordion-item">
+            <app-barra-clique [title]="'Opcionais / Eletivas'" [showArrow]="true"></app-barra-clique>
+        </div>
       </div>
       
       <div class="complementary-hours">
-        <label for="comp_hours">componentes complementares</label>
-        <div class="input-group">
-          <input type="text" id="comp_hours" [value]="m.horasComplementares" readonly>
+        <div class="comp-header">
+          <label>componentes complementares</label>
           <span>CH</span>
         </div>
+        <input type="text" [value]="m.horasComplementares" readonly>
       </div>
     </main>
   } @else {
-    @if(isLoading()) {
-      <p>Carregando matriz curricular...</p>
-    } @else if (error()) {
-      <p style="color: red;">{{ error() }}</p>
-    } @else {
-      <p style="color: red;">Não foi possível carregar a matriz curricular.</p>
-    }
+     <p>Carregando matriz curricular...</p>
   }
 </div>
 
 @if(isOrganizarModalVisible()) {
   <app-organizar-matriz
-    [idMatriz]="matriz()?.id!" 
+    [idMatriz]="matriz()?.id!"
     (close)="closeOrganizarModal()"
     (save)="handleSaveOrganizar($event)">
   </app-organizar-matriz>

@@ -1,3 +1,4 @@
+// Corrigido para corresponder ao template e backend
 export interface DisciplinaDetalhada {
   id: number;
   nome: string;
@@ -8,18 +9,18 @@ export interface DisciplinaDetalhada {
 }
 
 export interface Semestre {
-  semestre: number;
-  disciplinas: DisciplinaDetalhada[];
+  semestre: number; 
+  disciplinas: DisciplinaDetalhada[]; 
 }
 
 export interface MatrizCurricular {
   id: number;
-  nomeMatriz: string;
+  nomeMatriz: string; 
   nomeCurso?: string;
   turno: string;
   campus: string;
   habilitacao: string;
-  horasComplementares: number;
+  horasComplementares: number; 
   semestres: Semestre[];
 }
 

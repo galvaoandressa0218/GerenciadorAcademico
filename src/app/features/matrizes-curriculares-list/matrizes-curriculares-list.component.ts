@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { MatrizCurricularService } from '../core/services/matriz-curricular.service';
 import { MatrizCurricularSummary } from '../core/model/matriz-curricular.model';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { BarraCliqueComponent } from '../../shared/barra-clique/barra-clique.component';
 @Component({
   selector: 'app-matrizes-curriculares-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BarraCliqueComponent],
   templateUrl: './matrizes-curriculares-list.component.html',
   styleUrls: ['./matrizes-curriculares-list.component.css']
 })

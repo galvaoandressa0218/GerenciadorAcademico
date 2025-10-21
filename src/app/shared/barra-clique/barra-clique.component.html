@@ -1,16 +1,21 @@
-<ng-container *ngIf="title">
-  <div class="barra-resumo barra-generica" (click)="onBarClick()">
-    <span>{{ title }}</span>
-    <ng-container *ngIf="showArrow">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icone-seta" [class.aberta]="estaAberta">
-        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/>
-      </svg>
-    </ng-container>
+<div class="barra-wrapper" [class.aberta]="estaAberta">
+  <div class="barra-resumo barra-generica" (click)="handleClick()">
+    <div class="barra-info">
+      <h2>{{ title }}</h2>
+
+      @if(subtitle) {
+        <p class="subtitle">{{ subtitle }}</p>
+      }
+    </div>
+
+    @if(showArrow) {
+      <div class="icone-seta" [class.aberta]="estaAberta">▶</div>
+    }
   </div>
-</ng-container>
 
-<ng-container *ngIf="materia">
-  </ng-container>
-
-<ng-container *ngIf="referencia">
-  </ng-container>
+  @if(estaAberta) {
+    <div class="barra-detalhes">
+      <ng-content></ng-content>
+    </div>
+  }
+</div>

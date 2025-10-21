@@ -66,6 +66,10 @@ export class AuthService {
     return this.userRoleSubject.value === 'Admin';
   }
 
+  public get isProfessor(): boolean {
+    return this.userRoleSubject.value === 'Professor';
+  }
+
   public get isAuthenticated(): boolean {
     if (isPlatformBrowser(this.platformId)) {
       return !!localStorage.getItem('auth_token');

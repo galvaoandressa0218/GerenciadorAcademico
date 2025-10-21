@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../features/core/services/auth.service';
-
+//AUTENTICAÇÃO DESATIVA
 interface NavItem {
   icon: string; 
   label: string;
@@ -29,8 +29,4 @@ export class SidebarComponent {
     { icon: 'grid_view', label: 'Matrizes Curriculares', route: '/app/matrizes-curriculares' },
     { icon: 'import_contacts', label: 'Referencias bibliograficas', route: '/app/referencias-bibliograficas' }
   ];
-
-  handleLogout(): void {
-    this.authService.logout();
-  }
 }

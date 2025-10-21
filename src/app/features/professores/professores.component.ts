@@ -32,16 +32,20 @@ export class ProfessoresComponent implements OnInit {
   }
 
   loadProfessors(): void {
-    this.isLoading.set(true);
-    this.professorService.getProfessores().subscribe({
-      next: (data) => this.professors.set(data),
-      error: (err) => console.error('Erro ao carregar professores:', err),
-      complete: () => this.isLoading.set(false)
-    });
+    const dadoMockado: Professor = {
+      id: 1,
+      nomeCompleto: 'Dr. Andressa Galvão',
+      numeroRegistro: 1234567,
+      escolaVinculada: 'Universidade Federal da Bahia',
+      ativo: true,
+      dataCadastro: new Date().toISOString()
+    };
+    this.professors.set([dadoMockado]);
+    this.isLoading.set(false);
   }
 
   openModalToAdd(): void {
-    this.selectedProfessor.set(null); // Ensure no data is pre-filled
+    this.selectedProfessor.set(null);
     this.isModalVisible.set(true);
   }
 
@@ -62,7 +66,7 @@ export class ProfessoresComponent implements OnInit {
     operation.subscribe({
       next: () => {
         this.handleCloseModal();
-        this.loadProfessors(); // Reload the list
+        this.loadProfessors();
       },
       error: (err) => console.error('Erro ao salvar professor:', err)
     });

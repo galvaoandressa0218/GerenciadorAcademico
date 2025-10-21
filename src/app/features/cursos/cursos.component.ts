@@ -24,9 +24,15 @@ export class CursosComponent implements OnInit {
   public isAdmin = this.authService.isAdmin;
 
   ngOnInit(): void {
-    this.cursoService.getCursos().subscribe(data => {
-      this.cursos.set(data);
-    });
+    const dadoMockado: Curso = {
+      id: 1,
+      nome: 'Engenharia de Software',
+      turno: 'Noturno',
+      campus: 'Federação',
+      habilitacao: 'Bacharelado',
+      ch: 3200
+    };
+    this.cursos.set([dadoMockado]);
   }
 
   openAddModal(): void {
@@ -46,9 +52,8 @@ export class CursosComponent implements OnInit {
 
   navigateTo(curso: Curso): void {
     if (curso.id) {
-        this.router.navigate(['/app/matriz-curricular/curso', curso.id]);
+        this.router.navigate(['/app/matriz-curricular', curso.id]);
     } else {
         console.error("O curso não possui um ID para navegar.");
     }
-  }
-}
+  }}

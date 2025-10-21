@@ -2,20 +2,41 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <h2>{{ referenciaToEdit ? 'Editar Referência' : 'Adicionar Nova Referência' }}</h2>
     <form [formGroup]="form" class="form-layout">
+      
       <div class="form-row">
-        <div class="form-field"><label>Título</label><input formControlName="titulo"></div>
-        <div class="form-field"><label>Autor</label><input formControlName="autor"></div>
+        <div class="form-field">
+          <label>Título</label>
+          <input formControlName="titulo">
+        </div>
+        <div class="form-field">
+          <label>Autor</label>
+          <input formControlName="autor">
+        </div>
       </div>
+
       <div class="form-row">
-        <div class="form-field"><label>Edição</label><input formControlName="edicao"></div>
-        <div class="form-field"><label>Editora</label><input formControlName="editora"></div>
+        <div class="form-field">
+          <label>Edição</label>
+          <input formControlName="edicao">
+        </div>
+        <div class="form-field">
+          <label>Editora</label>
+          <input formControlName="editora">
+        </div>
       </div>
+      
        <div class="form-row">
-        <div class="form-field"><label>Ano</label><input type="number" formControlName="ano"></div>
-        <div class="form-field"><label>Local</label><input formControlName="local"></div>
+        <div class="form-field">
+          <label>Ano</label>
+          <input type="number" formControlName="ano">
+        </div>
+        <div class="form-field">
+          <label>Local</label>
+          <input formControlName="local">
+        </div>
       </div>
+
       <div class="form-row">
-        <div class="form-field"><label>ISBN</label><input formControlName="isbn"></div>
         <div class="form-field">
           <label>Tipo</label>
           <select formControlName="tipo">
@@ -23,8 +44,6 @@
             <option value="DIGITAL">Digital</option>
           </select>
         </div>
-      </div>
-      <div class="form-row">
         <div class="form-field">
           <label>Categoria</label>
           <select formControlName="categoria">
@@ -33,9 +52,17 @@
           </select>
         </div>
       </div>
+      
       <div class="form-field full-width">
-        <label>Url (Opcional)</label><input formControlName="url">
+        <label>ISBN</label>
+        <input formControlName="isbn">
       </div>
+      
+      <div class="form-field full-width">
+        <label>Url (Opcional)</label>
+        <input formControlName="url">
+      </div>
+      
       <div class="modal-actions">
         <button type="button" class="save-button" (click)="onSave()" [disabled]="form.invalid">
           {{ referenciaToEdit ? 'Salvar Alterações' : '+ Adicionar Referência' }}
